@@ -1,0 +1,25 @@
+.home-container {
+    background-color: white;
+    transition: background-color 0.8s ease;
+}
+
+.home-container-pink {
+    background-color: pink;
+    color: white;
+    transition: background-color 0.8s ease;
+}
+
+.home-container-pink ::selection {
+    background: white;
+    color: black;
+}
+
+.home-container-pink h2 {
+    color: white;
+    transition: background-color 0.8s ease;
+}
+
+.home-container-pink h4 {
+    color: white;
+    transition: background-color 0.8s ease;
+}

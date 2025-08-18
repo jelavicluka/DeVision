@@ -1,0 +1,243 @@
+.services-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+.services-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 60px;
+    min-height: 400px;
+}
+
+.services-intro {
+    max-width: 50%;
+}
+
+.services-intro h1 {
+    font-size: 3.5em;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.services-intro p {
+    font-size: 1.7rem;
+    line-height: 1.6;
+}
+
+.services-nav {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.circle-nav {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle-button {
+    position: absolute;
+    padding: 20px 35px;
+    background-color: #F18DBC;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform-origin: center;
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.circle-button:hover {
+    background-color: #ec75ad;
+}
+
+.vertical-nav {
+    display: none;
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+    max-width: 250px;
+}
+
+.vertical-button {
+    padding: 12px 20px;
+    background-color: #F18DBC;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.vertical-button:hover {
+    background-color: #ec75ad;
+    transform: translateX(5px); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.services-content {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.service-section {
+    padding: 40px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    scroll-margin-top: 20px;
+}
+
+.service-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    padding-left: 0px;
+    color: #F18DBC;
+    font-weight: bold;
+}
+
+.service-section p {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.service-clues {
+    list-style: none;
+    padding-left: 15px;
+    margin: 35px 0 0 0;
+}
+
+.service-clues li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    line-height: 1.5;
+}
+
+.service-clues li::before {
+    content: '•';
+    color: #F18DBC;
+    font-size: 1.5rem;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: -2px;
+}
+
+@media (max-width: 900px) {
+    .services-header {
+        min-height: 350px;
+    }
+
+    .circle-nav {
+        width: 250px;
+        height: 250px;
+    }
+
+    .circle-button {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+
+    .services-intro h1 {
+        font-size: 2.2rem;
+    }
+
+    .services-intro p {
+        font-size: 1.3rem;
+    }
+
+    .service-clues li {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .services-header {
+        flex-direction: column;
+        margin-bottom: 40px;
+        min-height: auto;
+    }
+
+    .services-intro {
+        max-width: 100%;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .services-nav {
+        width: 100%;
+    }
+
+    .circle-nav {
+        display: none;
+    }
+
+    .vertical-nav {
+        display: flex;
+    }
+
+    .service-section {
+        padding: 30px;
+    }
+
+    .service-section h2 {
+        font-size: 2rem;
+    }
+
+    .service-section p {
+        font-size: 1.3rem;
+    }
+
+    .service-clues li {
+        font-size: 0.9rem;
+        padding-left: 20px;
+    }
+
+    .service-clues li::before {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .services-container {
+        padding: 20px 15px;
+    }
+
+    .services-intro h1 {
+        font-size: 2rem;
+    }
+
+    .vertical-button {
+        padding: 22px 17px;
+        font-size: 0.9rem;
+    }
+
+    .service-section {
+        padding: 20px;
+    }
+
+    .service-section p {
+        font-size: 1.2rem;
+    }
+
+    .service-clues li {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+}

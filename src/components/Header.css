@@ -1,0 +1,26 @@
+h2 {
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-size: 4rem;
+    line-height: 1.2;
+    padding-left: 5rem;
+}
+
+@media (max-width: 1000px) {
+    h2 {
+        display: flex;
+        font-size: 2.6rem;
+        line-height: 1.2;
+        font-weight: 500;
+        padding-left: 0;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 500px) {
+    h2 {
+        font-size: 2.6rem;
+    }
+}

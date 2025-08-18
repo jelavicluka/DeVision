@@ -1,0 +1,23 @@
+.iPhone-mockup {
+    position: relative;
+    width: 300px;
+    height: 650px;
+  }
+  
+  .iPhone-mockup img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 650px;
+    z-index: 2;
+  }
+  
+  .iPhone-mockup video {
+    position: absolute;
+    height: 630px;
+    object-fit: cover;
+    border-radius: 35px;
+    top: 1.5%;
+    left: 5%;
+    width: 98%;
+  }

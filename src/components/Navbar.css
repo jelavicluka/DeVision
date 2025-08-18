@@ -1,0 +1,274 @@
+body {
+    padding-top: 100px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 0 5vh;
+    height: 100px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 95.5%;
+    transition: transform 0.3s ease-in-out;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+#logo-text {
+    font-size: 4rem;
+    font-weight: 700;
+    color: black;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.NavLink-logo-text {
+    text-decoration: none;
+}
+
+#logo-text:hover {
+    color: #F18DBC;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    padding-right: 5vh;
+}
+
+.tabs {
+    margin-right: 15px;
+}
+
+.tabs ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tabs li {
+    margin-left: 3rem;
+}
+
+.tabs a {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    font-size: 30px;
+    transition: color 0.3s ease;
+}
+
+.tabs a:hover {
+    color: #F18DBC;
+}
+
+.divider {
+    margin: 0 15px;
+    color: #ccc;
+    font-size: 24px;
+}
+
+.language-toggle {
+    display: flex;
+    gap: 5px;
+    padding-top: 7px;
+}
+
+.language-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    color: #777;
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: color 0.3s ease;
+}
+
+.language-btn:hover {
+    color: #F18DBC;
+}
+
+.language-btn.active {
+    color: #F18DBC;
+    font-weight: 600;
+}
+
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    z-index: 101;
+}
+
+.hamburger {
+    width: 47px;
+    height: 32px;
+    position: relative;
+}
+
+.hamburger span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: black;
+    border-radius: 3px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: .25s ease-in-out;
+}
+
+.hamburger span:nth-child(1) {
+    top: 0;
+}
+
+.hamburger span:nth-child(2) {
+    top: 10px;
+}
+
+.hamburger span:nth-child(3) {
+    top: 20px;
+}
+
+.hamburger.active span:nth-child(1) {
+    top: 10px;
+    transform: rotate(45deg);
+    background: #F18DBC;
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    top: 10px;
+    transform: rotate(-45deg);
+    background: #F18DBC;
+}
+
+.mobile-menu-container {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 1000px) {
+    body {
+        padding-top: 80px;
+    }
+
+    .navbar {
+        padding: 0 5vh;
+        height: 80px;
+        width: 90%;
+    }
+
+    #logo-text {
+        font-size: 4.2rem;
+    }
+
+    .hamburger-menu {
+        display: block;
+    }
+
+    .mobile-menu-container {
+        position: fixed;
+        top: 80px;
+        right: -100%;
+        width: 100%;
+        height: 50vh;
+        min-height: 50vh;
+        background: white;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 0;
+        transition: right 0.3s ease-in-out;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .mobile-menu-container.show {
+        right: 0;
+    }
+
+    .tabs {
+        margin-right: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .tabs ul {
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+    }
+
+    .tabs li {
+        margin: 15px 0;
+        text-align: center;
+    }
+
+    .tabs span {
+        font-size: 3.8rem;
+    }
+
+    .divider {
+        margin: 20px 0;
+        width: 25%;
+        height: 1px;
+        background-color: #ccc;
+        font-size: 0;
+        overflow: hidden;
+        content: "";
+    }
+
+    .divider:before {
+        content: "";
+    }
+
+    .language-toggle {
+        margin-top: 10px;
+    }
+
+    .nav-right {
+        padding-right: 3vh;
+        padding-top: 2.5vh;
+    }
+
+    .language-btn { 
+        font-size: 1.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0 4vh;
+    }
+
+    #logo-text {
+        font-size: 3rem;
+    }
+
+    .tabs span {
+        font-size: 2.7rem;
+    }
+
+    .divider {
+        width: 25%;
+    }
+
+    .nav-right {
+        padding-right: 3vh;
+        padding-top: 1.7vh;
+    }
+}
