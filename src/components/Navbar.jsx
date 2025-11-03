@@ -12,18 +12,27 @@ const Navbar = ({ croatian, setCroatian }) => {
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
+            const scrollDifference = Math.abs(currentScrollY - lastScrollY);
+            const scrollThreshold = 50; // Minimum scroll distance before hiding/showing
             
-            if (currentScrollY === 0) {
-                setIsVisible(true);
-            } else if (currentScrollY > lastScrollY) {
-                setIsVisible(false);
-            } else {
+            // Always show navbar at the top of the page
+            if (currentScrollY < 50) {
                 setIsVisible(true);
             }
-    
-            setLastScrollY(currentScrollY);
+            // Only hide/show if scrolled more than threshold
+            else if (scrollDifference > scrollThreshold) {
+                if (currentScrollY > lastScrollY) {
+                    // Scrolling down
+                    setIsVisible(false);
+                } else {
+                    // Scrolling up
+                    setIsVisible(true);
+                }
+                setLastScrollY(currentScrollY);
+            }
         };
-        window.addEventListener('scroll', handleScroll);
+        
+        window.addEventListener('scroll', handleScroll, { passive: true });
     
         return () => {
             window.removeEventListener('scroll', handleScroll);
@@ -89,21 +98,6 @@ const Navbar = ({ croatian, setCroatian }) => {
                                 <li><span>{croatian ? "Kontakt" : "Contact"}</span></li>
                             </NavLink>
                         </ul>
-                    </div>
-                    <div className="divider">|</div>
-                    <div className="language-toggle">
-                        <button
-                            className={croatian ? "language-btn active" : "language-btn"}
-                            onClick={() => setCroatian(true)}
-                        >
-                            Hrv
-                        </button>
-                        <button
-                            className={!croatian ? "language-btn active" : "language-btn"}
-                            onClick={() => setCroatian(false)}
-                        >
-                            Eng
-                        </button>
                     </div>
                 </div>
             </div>

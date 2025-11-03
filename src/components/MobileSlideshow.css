@@ -1,10 +1,80 @@
 .mobile-slideshow {
-    width: 90%;
-    max-width: 315px;
+    width: 100%;
+    max-width: 510px;
     margin: 0 auto;
     position: relative;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    transform: scale(0.85);
+    transform-origin: top center;
 }
 
+/* Post Header */
+.post-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid #efefef;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #e1e1e1;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #e1e1e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #666;
+    font-size: 14px;
+}
+
+.username {
+    font-weight: 600;
+    font-size: 14px;
+    color: #262626;
+}
+
+.more-options {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: #262626;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.more-options:hover {
+    opacity: 0.6;
+}
+
+/* Slideshow Container */
 .slideshow-container {
     position: relative;
     display: flex;
@@ -16,11 +86,9 @@
 .slideshow-wrapper {
     width: 100%;
     overflow: hidden;
-    border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     position: relative;
-    aspect-ratio: 9/16; /* Mobile aspect ratio for vertical images */
-    background: #f5f5f5;
+    aspect-ratio: 9/16;
+    background: #000;
 }
 
 .slideshow-track {
@@ -41,36 +109,108 @@
 .slideshow-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: 15px;
+    object-fit: contain;
 }
 
-
-
-.slideshow-dots {
+/* Dots overlay on image (Instagram style) */
+.slideshow-dots-overlay {
     display: flex;
     justify-content: center;
-    gap: 8px;
-    margin-top: 20px;
+    align-items: center;
+    gap: 5px;
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
 }
 
-.slideshow-dot {
-    width: 10px;
-    height: 10px;
+.slideshow-dot-overlay {
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.slideshow-dot-overlay.active {
+    background: #fff;
+    width: 9px;
+    height: 9px;
+}
+
+/* Action Buttons */
+.post-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 16px;
+    border-bottom: 1px solid #efefef;
+}
+
+.action-buttons-left {
+    display: flex;
+    gap: 16px;
+}
+
+.action-button {
+    background: none;
     border: none;
-    background: #ccc;
     cursor: pointer;
-    transition: all 0.3s ease;
+    padding: 8px;
+    color: #262626;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease;
 }
 
-.slideshow-dot.active {
-    background: #333;
-    transform: scale(1.2);
+.action-button:hover {
+    opacity: 0.6;
 }
 
-.slideshow-dot:hover {
-    background: #666;
+.action-button.liked {
+    animation: likeAnimation 0.3s ease;
+}
+
+.action-button.saved {
+    animation: saveAnimation 0.3s ease;
+}
+
+.action-button.saved svg {
+    fill: #262626;
+    stroke: #262626;
+}
+
+@keyframes likeAnimation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+@keyframes saveAnimation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Description */
+.post-description {
+    padding: 8px 16px 16px;
+    font-size: 14px;
+    line-height: 18px;
+    color: #262626;
+    text-align: left;
+}
+
+.description-username {
+    font-weight: 600;
+    margin-right: 6px;
+}
+
+.description-text {
+    color: #262626;
 }
 
 .slideshow-placeholder {
@@ -88,5 +228,16 @@
 @media (max-width: 1000px) {
     .mobile-slideshow {
         display: block;
+    }
+}
+
+/* Mobile specific adjustments */
+@media (max-width: 600px) {
+    .mobile-slideshow {
+        border-radius: 0;
+    }
+    
+    .slideshow-wrapper {
+        border-radius: 0;
     }
 }

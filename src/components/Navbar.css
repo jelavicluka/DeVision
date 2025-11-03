@@ -71,38 +71,6 @@ body {
     color: #F18DBC;
 }
 
-.divider {
-    margin: 0 15px;
-    color: #ccc;
-    font-size: 24px;
-}
-
-.language-toggle {
-    display: flex;
-    gap: 5px;
-    padding-top: 7px;
-}
-
-.language-btn {
-    background: none;
-    border: none;
-    font-size: 18px;
-    font-weight: 500;
-    color: #777;
-    cursor: pointer;
-    padding: 4px 8px;
-    transition: color 0.3s ease;
-}
-
-.language-btn:hover {
-    color: #F18DBC;
-}
-
-.language-btn.active {
-    color: #F18DBC;
-    font-weight: 600;
-}
-
 .hamburger-menu {
     display: none;
     cursor: pointer;
@@ -222,31 +190,9 @@ body {
         font-size: 3.8rem;
     }
 
-    .divider {
-        margin: 20px 0;
-        width: 25%;
-        height: 1px;
-        background-color: #ccc;
-        font-size: 0;
-        overflow: hidden;
-        content: "";
-    }
-
-    .divider:before {
-        content: "";
-    }
-
-    .language-toggle {
-        margin-top: 10px;
-    }
-
     .nav-right {
         padding-right: 3vh;
         padding-top: 2.5vh;
-    }
-
-    .language-btn { 
-        font-size: 1.9rem;
     }
 }
 
@@ -261,10 +207,6 @@ body {
 
     .tabs span {
         font-size: 2.7rem;
-    }
-
-    .divider {
-        width: 25%;
     }
 
     .nav-right {

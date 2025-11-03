@@ -1,5 +1,5 @@
 import React from 'react';
-import iPhoneMockupImage from '../assets/iphone-mockup.png'
+import iPhoneMockupImage from '../assets/iphone.png'
 import iPhonePromoVideo from '../assets/iphone-promo-video.mp4'
 import './IPhoneMockup.css'
 
