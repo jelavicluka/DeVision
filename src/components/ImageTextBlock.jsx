@@ -1,18 +1,22 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { NavLink } from "react-router-dom";
+import { useRef, useEffect, useState } from 'react';
 import './ImageTextBlock.css';
 
 const ImageTextBlock = ({ 
-  image, 
+  image,
+  imageAlt,
   text, 
-  imagePosition = 'right',
-  servicesButton,
-  croatian
+  imagePosition = 'right'
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef(null);
 
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container || !('IntersectionObserver' in window)) {
+      setIsVisible(true);
+      return undefined;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -21,19 +25,14 @@ const ImageTextBlock = ({
         }
       },
       {
-        threshold: 0.2
+        threshold: 0.12,
+        rootMargin: '0px 0px -8% 0px'
       }
     );
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
+    observer.observe(container);
 
-    return () => {
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current);
-      }
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -43,20 +42,19 @@ const ImageTextBlock = ({
         ${imagePosition === 'left' ? 'reverse' : ''} 
         ${isVisible ? 'visible' : ''}`}
     >
-      <div className={`image-container 
-        ${isVisible ? (imagePosition === 'right' ? 'slide-left-to-right' : 'slide-right-to-left') : ''}`}>
+      <div className="image-container">
         <img 
           src={image} 
-          alt="Block description" 
+          alt={imageAlt}
           className="block-image"
+          loading="lazy"
+          decoding="async"
         />
       </div>
-      <div className={`text-container 
-        ${isVisible ? (imagePosition === 'right' ? 'slide-right-to-left' : 'slide-left-to-right') : ''}`}>
+      <div className="text-container">
         <p className="block-text">
           {text}
         </p>
-        {servicesButton && <NavLink to="/services" className={({ isActive }) => (isActive ? "active" : '')}><button className='services-button'>{ croatian ? "Naše usluge" : "Our services" }</button></NavLink>}
       </div>
     </div>
   );

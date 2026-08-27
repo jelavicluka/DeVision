@@ -1,36 +1,107 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-
+  color-scheme: light dark;
+  --color-background: #fff;
+  --color-surface: #f4f4f4;
+  --color-text: #090909;
+  --color-muted: #555;
+  --color-border: #090909;
+  --color-contrast: #090909;
+  --color-on-contrast: #fff;
+  --color-footer: #050505;
+  --color-on-footer: #fff;
+  --color-selection: #d9d9d9;
+  --color-shadow: rgba(0, 0, 0, 0.14);
+  --navbar-height: 100px;
+  font-family: 'Tenor Sans', sans-serif;
+  color: var(--color-text);
+  background: var(--color-background);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 ::selection {
-  background: #F18DBC;
-  color: black;
+  background: var(--color-selection);
+  color: var(--color-text);
 }
 
 ::-moz-selection {
-  background: #F18DBC;
-  color: black;
+  background: var(--color-selection);
+  color: var(--color-text);
 }
 
-html, body {
+html {
+  scroll-behavior: smooth;
+}
+
+body {
   overflow-x: hidden;
-  max-width: 100%;
-  margin: 0px;
+  margin: 0;
+  min-width: 320px;
+  padding-top: var(--navbar-height);
+  background: var(--color-background);
 }
 
-h1 {
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-
+h1,
 h2 {
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: inherit;
 }
 
-.active span {
-  color: #F18DBC;
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #050505;
+    --color-surface: #151515;
+    --color-text: #f7f7f7;
+    --color-muted: #bcbcbc;
+    --color-border: #f7f7f7;
+    --color-contrast: #f7f7f7;
+    --color-on-contrast: #050505;
+    --color-selection: #454545;
+    --color-shadow: rgba(255, 255, 255, 0.1);
+  }
+}
+
+@media (max-width: 1000px) {
+  :root {
+    --navbar-height: 80px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

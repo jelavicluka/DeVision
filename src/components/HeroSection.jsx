@@ -1,65 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import './HeroSection.css'
+import { useEffect, useState } from 'react';
+import './HeroSection.css';
 import IPhoneMockup from './iPhoneMockup';
 import IconsSocial from './IconsSocial';
 import MobileSlideshow from './MobileSlideshow';
-// Import your images
 import exampleImage0 from '../assets/example-post.jpeg';
-// Add more imports as needed
 
-const HeroSection = ({ croatian }) => {
-    const [isMobile, setIsMobile] = useState(false);
+const slideshowImages = [
+    { src: exampleImage0, alt: 'DeVision social media post' },
+    { src: exampleImage0, alt: 'DeVision campaign preview' },
+    { src: exampleImage0, alt: 'DeVision mobile content' },
+];
+
+const HeroSection = () => {
+    const [isDesktop, setIsDesktop] = useState(() => window.matchMedia('(min-width: 1001px)').matches);
 
     useEffect(() => {
-        const checkScreenSize = () => {
-            setIsMobile(window.innerWidth <= 1000);
-        };
+        const mediaQuery = window.matchMedia('(min-width: 1001px)');
+        const handleChange = (event) => setIsDesktop(event.matches);
 
-        // Check on mount
-        checkScreenSize();
-
-        // Add event listener for window resize
-        window.addEventListener('resize', checkScreenSize);
-
-        // Cleanup
-        return () => window.removeEventListener('resize', checkScreenSize);
+        mediaQuery.addEventListener('change', handleChange);
+        return () => mediaQuery.removeEventListener('change', handleChange);
     }, []);
-
-    // Images array using imported images
-    const slideshowImages = [
-        {
-            src: exampleImage0,
-            alt: 'Mobile screenshot 1'
-        },
-        {
-            src: exampleImage0,
-            alt: 'Mobile screenshot 2'
-        },
-        {
-            src: exampleImage0,
-            alt: 'Mobile screenshot 3'
-        },
-        // Add more images as needed
-    ];
 
     return (
         <div className="hero-container">
             <div className="hero-content">
                 <div className="hero-header">
-                    {!isMobile &&  <h1>{croatian ? "Autentičan sadržaj koji privlači, angažira i prodaje." : "Authentic content that attracts, occupies and sells."}</h1> }
+                    {isDesktop && <h1>Autentičan sadržaj koji privlači, angažira i prodaje.</h1>}
                     <div className="mobile-slideshow-header">
                         <MobileSlideshow images={slideshowImages} />
                     </div>
                     <div className='icons-social-hero'>
-                        <IconsSocial color={"black"} size={"4x"} />
+                        <IconsSocial size="4x" />
                     </div>
                 </div>
                 <div className="mockup-container">
-                    {!isMobile && <IPhoneMockup />}
+                    {isDesktop && <IPhoneMockup />}
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default HeroSection;

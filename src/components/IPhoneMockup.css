@@ -1,10 +1,10 @@
-.iPhone-mockup {
+.iphone-mockup {
   position: relative;
   width: 310px;
   height: 650px;
 }
 
-.iPhone-mockup img {
+.iphone-mockup img {
   position: absolute;
   top: 0;
   left: 0;
@@ -13,7 +13,7 @@
   -webkit-user-drag: none;
 }
 
-.iPhone-mockup video {
+.iphone-mockup video {
   position: absolute;
   height: 630px;
   object-fit: cover;
@@ -21,4 +21,10 @@
   top: 1.5%;
   left: 4%;
   width: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+  .iphone-mockup img {
+    filter: invert(1);
+  }
 }

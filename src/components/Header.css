@@ -1,26 +1,102 @@
-h2 {
-    text-align: left;
-    font-weight: bold;
-    margin-bottom: 1.5rem;
-    color: #333;
-    font-size: 4rem;
-    line-height: 1.2;
-    padding-left: 5rem;
+.section-intro {
+  position: relative;
+  display: grid;
+  width: min(100%, 1440px);
+  margin: 0 auto;
+  padding: clamp(6rem, 12vw, 11rem) clamp(1.25rem, 5vw, 5rem) 2rem;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: 3rem;
+  align-items: end;
 }
 
-@media (max-width: 1000px) {
-    h2 {
-        display: flex;
-        font-size: 2.6rem;
-        line-height: 1.2;
-        font-weight: 500;
-        padding-left: 0;
-        justify-content: center;
-    }
+.section-intro::after {
+  position: absolute;
+  right: clamp(1.25rem, 5vw, 5rem);
+  bottom: 0;
+  left: clamp(1.25rem, 5vw, 5rem);
+  height: 1px;
+  background: var(--color-border);
+  content: '';
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.9s cubic-bezier(0.2, 0.75, 0.25, 1) 0.25s;
 }
 
-@media (max-width: 500px) {
-    h2 {
-        font-size: 2.6rem;
-    }
+.section-intro.is-visible::after {
+  transform: scaleX(1);
+}
+
+.section-intro__title,
+.section-intro > p {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+.section-intro > p {
+  transition-delay: 0.12s;
+}
+
+.section-intro.is-visible .section-intro__title,
+.section-intro.is-visible > p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-intro__kicker {
+  display: block;
+  margin-bottom: 1.75rem;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.section-intro h2 {
+  max-width: 850px;
+  margin: 0;
+  color: var(--color-text);
+  font-size: clamp(4rem, 8vw, 8rem);
+  font-weight: 400;
+  letter-spacing: -0.065em;
+  line-height: 0.92;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-intro::after,
+  .section-intro__title,
+  .section-intro > p {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+.section-intro > p {
+  max-width: 540px;
+  margin: 0 0 0.25rem auto;
+  color: var(--color-muted);
+  font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+  line-height: 1.65;
+}
+
+@media (max-width: 900px) {
+  .section-intro {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .section-intro > p {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .section-intro {
+    padding-top: 5rem;
+  }
+
+  .section-intro h2 {
+    font-size: clamp(3.6rem, 18vw, 5rem);
+  }
 }

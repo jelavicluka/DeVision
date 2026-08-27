@@ -1,0 +1,22 @@
+.logo-mark {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  color: inherit;
+  line-height: 1;
+}
+
+.logo-mark__name {
+  font-size: 1em;
+  letter-spacing: -0.055em;
+}
+
+.logo-mark__tagline {
+  margin-top: 0.18em;
+  padding-left: 0.35em;
+  font-size: 0.16em;
+  letter-spacing: 0.52em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}

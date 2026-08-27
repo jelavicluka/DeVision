@@ -1,20 +1,26 @@
-body {
-    padding-top: 100px;
-}
-
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: white;
-    padding: 0 5vh;
-    height: 100px;
+    background-color: color-mix(in srgb, var(--color-background) 94%, transparent);
+    padding: 0 clamp(1.5rem, 5vw, 5rem);
+    height: var(--navbar-height);
     position: fixed;
     top: 0;
     left: 0;
-    width: 95.5%;
+    width: 100%;
     transition: transform 0.3s ease-in-out;
     z-index: 100;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 12%, transparent);
+    backdrop-filter: blur(12px);
+}
+
+.navbar-visible {
+    transform: translateY(0);
+}
+
+.navbar-hidden {
+    transform: translateY(-100%);
 }
 
 .logo {
@@ -22,30 +28,28 @@ body {
     align-items: center;
 }
 
-#logo-text {
+.nav-logo {
     font-size: 4rem;
     font-weight: 700;
-    color: black;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.NavLink-logo-text {
+    color: var(--color-text);
+    transition: opacity 0.2s ease;
     text-decoration: none;
 }
 
-#logo-text:hover {
-    color: #F18DBC;
+.nav-logo:hover {
+    opacity: 0.65;
 }
 
 .nav-right {
     display: flex;
     align-items: center;
-    padding-right: 5vh;
+    gap: 1.25rem;
 }
 
 .tabs {
-    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .tabs ul {
@@ -55,24 +59,33 @@ body {
     padding: 0;
 }
 
-.tabs li {
+.tabs li + li {
     margin-left: 3rem;
 }
 
 .tabs a {
     text-decoration: none;
-    color: black;
+    color: var(--color-text);
     font-weight: 500;
     font-size: 30px;
     transition: color 0.3s ease;
 }
 
 .tabs a:hover {
-    color: #F18DBC;
+    opacity: 0.6;
+}
+
+.tabs a.active {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.3em;
 }
 
 .hamburger-menu {
     display: none;
+    padding: 0;
+    border: 0;
+    background: transparent;
     cursor: pointer;
     z-index: 101;
 }
@@ -88,12 +101,12 @@ body {
     position: absolute;
     height: 3px;
     width: 100%;
-    background: black;
+    background: var(--color-text);
     border-radius: 3px;
     opacity: 1;
     left: 0;
     transform: rotate(0deg);
-    transition: .25s ease-in-out;
+    transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out, top 0.25s ease-in-out;
 }
 
 .hamburger span:nth-child(1) {
@@ -111,7 +124,7 @@ body {
 .hamburger.active span:nth-child(1) {
     top: 10px;
     transform: rotate(45deg);
-    background: #F18DBC;
+    background: var(--color-text);
 }
 
 .hamburger.active span:nth-child(2) {
@@ -121,7 +134,7 @@ body {
 .hamburger.active span:nth-child(3) {
     top: 10px;
     transform: rotate(-45deg);
-    background: #F18DBC;
+    background: var(--color-text);
 }
 
 .mobile-menu-container {
@@ -130,18 +143,13 @@ body {
 }
 
 @media (max-width: 1000px) {
-    body {
-        padding-top: 80px;
-    }
-
     .navbar {
-        padding: 0 5vh;
-        height: 80px;
-        width: 90%;
+        padding: 0 clamp(1.25rem, 5vw, 3rem);
+        height: var(--navbar-height);
     }
 
-    #logo-text {
-        font-size: 4.2rem;
+    .nav-logo {
+        font-size: 3rem;
     }
 
     .hamburger-menu {
@@ -150,18 +158,18 @@ body {
 
     .mobile-menu-container {
         position: fixed;
-        top: 80px;
+        top: var(--navbar-height);
         right: -100%;
         width: 100%;
-        height: 50vh;
         min-height: 50vh;
-        background: white;
+        background: var(--color-background);
         flex-direction: column;
         justify-content: center;
         align-items: center;
         padding: 20px 0;
         transition: right 0.3s ease-in-out;
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid var(--color-border);
+        box-shadow: 0 10px 20px var(--color-shadow);
     }
 
     .mobile-menu-container.show {
@@ -169,9 +177,8 @@ body {
     }
 
     .tabs {
-        margin-right: 0;
         width: 100%;
-        display: flex;
+        flex-direction: column;
         justify-content: center;
     }
 
@@ -181,36 +188,39 @@ body {
         flex: 1;
     }
 
-    .tabs li {
+    .tabs li,
+    .tabs li + li {
         margin: 15px 0;
         text-align: center;
     }
 
-    .tabs span {
+    .tabs a {
         font-size: 3.8rem;
     }
 
     .nav-right {
-        padding-right: 3vh;
-        padding-top: 2.5vh;
+        padding: 0;
     }
 }
 
 @media (max-width: 480px) {
     .navbar {
-        padding: 0 4vh;
+        padding: 0 1rem;
     }
 
-    #logo-text {
-        font-size: 3rem;
+    .nav-logo {
+        font-size: 2.25rem;
     }
 
-    .tabs span {
+    .hamburger {
+        width: 40px;
+    }
+
+    .tabs a {
         font-size: 2.7rem;
     }
 
     .nav-right {
-        padding-right: 3vh;
-        padding-top: 1.7vh;
+        padding: 0;
     }
 }
