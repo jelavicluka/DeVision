@@ -4,7 +4,8 @@ import './ImageTextBlock.css';
 const ImageTextBlock = ({ 
   image,
   imageAlt,
-  text, 
+  text,
+  textClassName = '',
   imagePosition = 'right'
 }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -52,7 +53,7 @@ const ImageTextBlock = ({
         />
       </div>
       <div className="text-container">
-        <p className="block-text">
+        <p className={`block-text ${textClassName}`.trim()}>
           {text}
         </p>
       </div>

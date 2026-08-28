@@ -4,6 +4,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Footer from './components/Footer';
+import ScrollTopButton from './components/ScrollTopButton';
 
 const Services = lazy(() => import('./components/Services'));
 const Contact = lazy(() => import('./components/Contact'));
@@ -31,6 +32,7 @@ function App() {
         </Routes>
       </Suspense>
       <Footer />
+      <ScrollTopButton />
     </div>
   );
 }

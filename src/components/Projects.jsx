@@ -1,39 +1,28 @@
 import { useEffect, useRef } from 'react';
 import './Projects.css';
-import chevapImage from '../assets/chevap.jpg';
-import levelImage from '../assets/level.jpg';
-import bloomImage from '../assets/weddings.jpg';
-import bestImage from '../assets/best.jpg';
+import bodyCliniqueDark from '../assets/project-logos/body-clinique-dark.png';
+import bodyCliniqueLight from '../assets/project-logos/body-clinique-light.png';
+import cakeSymphonyDark from '../assets/project-logos/cake-symphony-dark.png';
+import cakeSymphonyLight from '../assets/project-logos/cake-symphony-light.png';
+import chevapHouseDark from '../assets/project-logos/chevap-house-dark.png';
+import chevapHouseLight from '../assets/project-logos/chevap-house-light.png';
+import hevaDark from '../assets/project-logos/heva-dark.png';
+import hevaLight from '../assets/project-logos/heva-light.png';
+import jokerDark from '../assets/project-logos/joker-dark.png';
+import jokerLight from '../assets/project-logos/joker-light.png';
+import levelDark from '../assets/project-logos/level-dark.png';
+import levelLight from '../assets/project-logos/level-light.png';
+import soraDark from '../assets/project-logos/sora-dark.png';
+import soraLight from '../assets/project-logos/sora-light.png';
 
 const projects = [
-  {
-    id: 'chevap-house',
-    image: chevapImage,
-    title: 'Chevap House',
-    services: ['Društvene mreže', 'Kreiranje sadržaja'],
-    description: 'Svijet ćevapa u kojem se susreću tradicija, kvaliteta i strast prema savršenom okusu.'
-  },
-  {
-    id: 'level-restaurant',
-    image: levelImage,
-    title: 'Level Restaurant',
-    services: ['Brendiranje', 'Digitalni marketing'],
-    description: 'Digitalni identitet restorana koji iskustvo predstavljanja podiže na novu razinu.'
-  },
-  {
-    id: 'grupa-best',
-    image: bestImage,
-    title: 'Grupa Best',
-    services: ['Kampanje', 'Produkcija'],
-    description: 'Sadržaj koji prenosi atmosferu i pozicionira Grupu Best kao prvi izbor za svaku proslavu.'
-  },
-  {
-    id: 'bloom-weddings',
-    image: bloomImage,
-    title: 'Bloom Weddings',
-    services: ['Strategija', 'Društvene mreže'],
-    description: 'Naš pilot projekt i suradnja kojom je započela priča DeVisiona.'
-  }
+  { id: 'cake-symphony', title: 'Cake Symphony', light: cakeSymphonyLight, dark: cakeSymphonyDark },
+  { id: 'chevap-house', title: 'Chevap House', light: chevapHouseLight, dark: chevapHouseDark },
+  { id: 'heva', title: 'HEVA', light: hevaLight, dark: hevaDark },
+  { id: 'joker-fitness', title: 'Joker Fitness', light: jokerLight, dark: jokerDark },
+  { id: 'level', title: 'Level', light: levelLight, dark: levelDark },
+  { id: 'the-body-clinique', title: 'The Body Clinique', light: bodyCliniqueLight, dark: bodyCliniqueDark },
+  { id: 'sora', title: 'Sora Sushi & Cocktail Bar', light: soraLight, dark: soraDark }
 ];
 
 const Projects = () => {
@@ -41,7 +30,10 @@ const Projects = () => {
 
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section) return undefined;
+    if (!section || !('IntersectionObserver' in window)) {
+      section?.classList.add('is-visible');
+      return undefined;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -50,7 +42,7 @@ const Projects = () => {
           observer.disconnect();
         }
       },
-      { threshold: 0.05 }
+      { threshold: 0.08 }
     );
 
     observer.observe(section);
@@ -60,35 +52,35 @@ const Projects = () => {
   return (
     <section ref={sectionRef} className="projects-showcase" aria-labelledby="projects-title">
       <header className="projects-heading">
-        <div>
-          <span className="projects-heading__kicker">Naši klijenti</span>
-          <h2 id="projects-title">Projekti</h2>
-        </div>
-        <p>Od strategije do izvedbe — odabrane suradnje u kojima smo brendovima pomogli da budu jasniji, vidljiviji i prepoznatljiviji.</p>
+        <span className="projects-heading__kicker">Naši klijenti</span>
+        <h2 id="projects-title">Projekti</h2>
       </header>
 
-      <div className="projects-showcase__grid">
-        {projects.map((project, index) => (
-          <article key={project.id} className="client-project-card" style={{ '--project-index': index }}>
-            <div className="client-project-card__meta">
-              <span>Klijent</span>
-              <span>{String(index + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}</span>
-            </div>
+      <p className="projects-visually-hidden">
+        Naši klijenti: {projects.map((project) => project.title).join(', ')}.
+      </p>
 
-            <figure className="client-project-card__visual">
-              <img src={project.image} alt={`${project.title} — prikaz projekta`} loading="lazy" decoding="async" />
+      <div className="projects-marquee" aria-hidden="true">
+        <div className="projects-marquee__track">
+          {[...projects, ...projects].map((project, index) => (
+            <figure className="projects-marquee__item" key={`${project.id}-${index}`}>
+              <picture>
+                <source media="(prefers-color-scheme: dark)" srcSet={project.dark} />
+                <img
+                  src={project.light}
+                  alt=""
+                  loading={index < projects.length ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
+              </picture>
             </figure>
-
-            <div className="client-project-card__content">
-              <h3>{project.title}</h3>
-              <p>{project.description}</p>
-              <ul className="client-project-card__services" aria-label={`Usluge za ${project.title}`}>
-                {project.services.map((service) => <li key={service}>{service}</li>)}
-              </ul>
-            </div>
-          </article>
-        ))}
+          ))}
+        </div>
       </div>
+
+      <p className="projects-caption">
+        Brendovi s kojima gradimo jasne, prepoznatljive i dugotrajne priče.
+      </p>
     </section>
   );
 };

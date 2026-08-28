@@ -1,22 +1,29 @@
 .logo-mark {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  width: max-content;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.34em;
   color: inherit;
   line-height: 1;
 }
 
 .logo-mark__name {
+  display: block;
   font-size: 1em;
   letter-spacing: -0.055em;
 }
 
 .logo-mark__tagline {
-  margin-top: 0.18em;
-  padding-left: 0.35em;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0.7em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 0.16em;
-  letter-spacing: 0.52em;
-  text-transform: uppercase;
   white-space: nowrap;
+}
+
+.logo-mark__space {
+  width: 0.45em;
 }

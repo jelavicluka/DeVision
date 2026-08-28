@@ -25,6 +25,6 @@
 
 @media (prefers-color-scheme: dark) {
   .iphone-mockup img {
-    filter: invert(1);
+    filter: invert(1) brightness(0.22);
   }
 }

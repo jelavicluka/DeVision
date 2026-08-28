@@ -23,12 +23,14 @@ const Home = () => {
                 image={exampleImage}
                 imageAlt="DeVision creator portrait"
                 text="Deni je oduvijek imala taj splitski dišpet i energiju koju je bilo nemoguće ignorirati. S 25 godina, već je izgradila ime u svijetu marketinga, vođenja društvenih mreža i modelinga."
+                textClassName="about-story-text"
                 imagePosition="right"
             />
             <ImageTextBlock
                 image={exampleImage2}
                 imageAlt="DeVision social media campaign"
                 text="Plava kosa, svijetle oči i zarazan osmijeh samo su dio njezinog šarma. No, ono što je činilo razliku, dok su se drugi bojali rizika, ona je hrabro koračala naprijed."
+                textClassName="about-story-text"
                 imagePosition="left"
             />
             <ServiceCards />
