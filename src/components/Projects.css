@@ -145,6 +145,19 @@
   }
 }
 
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 700px) {
+    .projects-marquee {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+
+    .projects-marquee__track {
+      will-change: auto;
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .projects-heading,
   .projects-marquee,
