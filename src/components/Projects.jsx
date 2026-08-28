@@ -27,6 +27,7 @@ const projects = [
 
 const Projects = () => {
   const sectionRef = useRef(null);
+  const marqueeRef = useRef(null);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -49,6 +50,32 @@ const Projects = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const marquee = marqueeRef.current;
+    const isIOSWebKit = /iPad|iPhone|iPod/.test(navigator.userAgent) && /WebKit/.test(navigator.userAgent);
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!marquee || !isIOSWebKit || reduceMotion) return undefined;
+
+    let animationFrame;
+    let previousTime = performance.now();
+    let position = marquee.scrollLeft;
+
+    const moveMarquee = (currentTime) => {
+      const elapsed = Math.min(currentTime - previousTime, 100);
+      const loopWidth = marquee.scrollWidth / 2;
+      previousTime = currentTime;
+      position += elapsed * 0.022;
+
+      if (loopWidth > 0 && position >= loopWidth) position -= loopWidth;
+      marquee.scrollLeft = position;
+      animationFrame = window.requestAnimationFrame(moveMarquee);
+    };
+
+    animationFrame = window.requestAnimationFrame(moveMarquee);
+    return () => window.cancelAnimationFrame(animationFrame);
+  }, []);
+
   return (
     <section ref={sectionRef} className="projects-showcase" aria-labelledby="projects-title">
       <header className="projects-heading">
@@ -60,7 +87,7 @@ const Projects = () => {
         Naši klijenti: {projects.map((project) => project.title).join(', ')}.
       </p>
 
-      <div className="projects-marquee" aria-hidden="true">
+      <div ref={marqueeRef} className="projects-marquee" aria-hidden="true">
         <div className="projects-marquee__track">
           {[...projects, ...projects].map((project, index) => (
             <figure className="projects-marquee__item" key={`${project.id}-${index}`}>

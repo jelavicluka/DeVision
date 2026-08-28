@@ -153,6 +153,7 @@
     }
 
     .projects-marquee__track {
+      animation: none;
       will-change: auto;
     }
   }
