@@ -10,20 +10,28 @@ const Services = lazy(() => import('./components/Services'));
 const Contact = lazy(() => import('./components/Contact'));
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
 
   useEffect(() => {
+    if (hash) {
+      window.requestAnimationFrame(() => document.querySelector(hash)?.scrollIntoView());
+      return;
+    }
+
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, hash]);
 
   return null;
 }
 
 function App() {
+  const { pathname } = useLocation();
+  const isHome = pathname === '/';
+
   return (
-    <div className="app">
+    <div className={`app${isHome ? ' app--home' : ''}`}>
       <ScrollToTop />
-      <Navbar />
+      {!isHome && <Navbar />}
       <Suspense fallback={<div className="route-loading" aria-live="polite">Loading…</div>}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -31,8 +39,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </Suspense>
-      <Footer />
-      <ScrollTopButton />
+      {!isHome && <Footer />}
+      {!isHome && <ScrollTopButton />}
     </div>
   );
 }

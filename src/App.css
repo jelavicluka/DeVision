@@ -2,6 +2,10 @@
     min-height: 100vh;
 }
 
+.app--home {
+    margin-top: calc(-1 * var(--navbar-height));
+}
+
 .route-loading {
     display: grid;
     min-height: calc(100vh - var(--navbar-height));
