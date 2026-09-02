@@ -185,12 +185,12 @@ const Contact = () => {
                 aria-describedby={errors.service ? 'contact-service-error' : undefined}
               >
                 <option value="">Odaberite uslugu</option>
-                <option value="digital-marketing">Digitalni marketing</option>
-                <option value="e-commerce">E-commerce rješenja</option>
-                <option value="web-development">Razvoj web stranica</option>
-                <option value="ui-ux">UI/UX dizajn</option>
-                <option value="mobile-apps">Mobilne aplikacije</option>
-                <option value="cloud">Cloud usluge</option>
+                <option value="social-content">Društvene mreže i sadržaj</option>
+                <option value="digital-marketing">Digitalni marketing i oglašavanje</option>
+                <option value="branding">Brending i strategija</option>
+                <option value="media-design">Dizajn i medijsko oglašavanje</option>
+                <option value="web-seo">Web i SEO</option>
+                <option value="events">Eventi i aktivacije</option>
                 <option value="other">Nešto drugo</option>
               </select>
               {errors.service && <span id="contact-service-error" className="form-field__error">{errors.service}</span>}

@@ -1,10 +1,12 @@
 .footer {
-  background-color: var(--color-footer);
-  color: var(--color-on-footer);
-  padding: 4rem 2rem;
+  background-color: #000;
+  color: #fff;
+  padding: clamp(4rem, 7vw, 7rem) clamp(1.5rem, 5vw, 5rem) 2rem;
   display: flex;
   flex-direction: column;
-  min-height: 70vh;
+  min-height: 62vh;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-family: 'Poppins', Arial, sans-serif;
 }
 
 .footer ::selection {
@@ -19,7 +21,7 @@
 
 .footer-content {
   display: flex;
-  max-width: 1200px;
+  max-width: 1440px;
   width: 100%;
   margin: 0 auto;
   justify-content: space-between;
@@ -43,7 +45,7 @@
 }
 
 .footer-logo .logo-mark {
-  color: var(--color-on-footer);
+  color: #fff;
   font-size: 6rem;
 }
 
@@ -60,7 +62,10 @@
 }
 
 .contact-section h3 {
+  color: var(--brand-pink);
   font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
   margin-bottom: 1rem;
 }
 
@@ -77,7 +82,7 @@
 }
 
 .contact-item a {
-  color: var(--color-on-footer);
+  color: #fff;
   text-decoration: none;
   font-size: 1.9rem;
   font-weight: 400;
@@ -110,20 +115,23 @@
 }
 
 .footer-nav a {
-  color: var(--color-on-footer);
+  color: var(--brand-yellow);
   text-decoration: none;
-  font-size: 4rem;
+  font-size: clamp(2.75rem, 4.5vw, 4.75rem);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1;
   transition: color 0.3s ease;
 }
 
 .footer-nav a:hover {
-  opacity: 0.65;
+  color: var(--brand-pink);
+  opacity: 1;
 }
 
 .footer-nav a.active {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.25em;
+  color: var(--brand-pink);
+  text-decoration: none;
 }
 
 .footer-bottom {
@@ -133,8 +141,11 @@
 }
 
 .footer-bottom p {
-  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 0.75rem;
   font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 @media (max-width: 1000px) {

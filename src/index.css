@@ -1,18 +1,20 @@
 :root {
   color-scheme: light dark;
-  --color-background: #fff;
-  --color-surface: #f4f4f4;
-  --color-text: #090909;
-  --color-muted: #555;
-  --color-border: #090909;
-  --color-contrast: #090909;
-  --color-on-contrast: #fff;
+  --color-background: #000;
+  --color-surface: #111;
+  --color-text: #fff;
+  --color-muted: #d3d3d3;
+  --color-border: rgba(255, 255, 255, 0.42);
+  --color-contrast: #ff3cb4;
+  --color-on-contrast: #000;
   --color-footer: #050505;
   --color-on-footer: #fff;
-  --color-selection: #d9d9d9;
-  --color-shadow: rgba(0, 0, 0, 0.14);
+  --color-selection: #ff3cb4;
+  --color-shadow: rgba(0, 0, 0, 0.42);
+  --brand-pink: #ff3cb4;
+  --brand-yellow: #fffcaf;
   --navbar-height: 100px;
-  font-family: 'Tenor Sans', sans-serif;
+  font-family: 'Poppins', Arial, sans-serif;
   color: var(--color-text);
   background: var(--color-background);
   font-synthesis: none;
@@ -69,20 +71,6 @@ a {
 :focus-visible {
   outline: 2px solid var(--color-text);
   outline-offset: 4px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: #050505;
-    --color-surface: #151515;
-    --color-text: #f7f7f7;
-    --color-muted: #bcbcbc;
-    --color-border: #f7f7f7;
-    --color-contrast: #f7f7f7;
-    --color-on-contrast: #050505;
-    --color-selection: #454545;
-    --color-shadow: rgba(255, 255, 255, 0.1);
-  }
 }
 
 @media (max-width: 1000px) {

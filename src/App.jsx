@@ -25,13 +25,10 @@ function ScrollToTop() {
 }
 
 function App() {
-  const { pathname } = useLocation();
-  const isHome = pathname === '/';
-
   return (
-    <div className={`app${isHome ? ' app--home' : ''}`}>
+    <div className="app">
       <ScrollToTop />
-      {!isHome && <Navbar />}
+      <Navbar />
       <Suspense fallback={<div className="route-loading" aria-live="polite">Loading…</div>}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -39,8 +36,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </Suspense>
-      {!isHome && <Footer />}
-      {!isHome && <ScrollTopButton />}
+      <Footer />
+      <ScrollTopButton />
     </div>
   );
 }

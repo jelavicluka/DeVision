@@ -1,15 +1,8 @@
+import { useEffect, useRef } from 'react';
 import './Home.css';
 import Logo from './Logo';
 
-import aboutJoker from '../assets/home/about-joker.jpeg';
-import aboutFitness from '../assets/home/about-fitness.jpeg';
-import aboutReplay from '../assets/home/about-replay.jpeg';
-import aboutFashion from '../assets/home/about-fashion.jpeg';
-import aboutBurger from '../assets/home/about-burger.jpeg';
-import aboutShirt from '../assets/home/about-shirt.png';
-import aboutCity from '../assets/home/about-city.jpeg';
-import aboutPhone from '../assets/home/about-phone.jpeg';
-import clientStrip from '../assets/home/client-strip.png';
+import aboutVideo from '../../Business Marketing Video.mp4';
 import socialPasta from '../assets/home/social-pasta.jpeg';
 import marketingJuly from '../assets/home/marketing-july.png';
 import marketingAugust from '../assets/home/marketing-august.png';
@@ -21,19 +14,41 @@ import eventInterview from '../assets/home/event-interview.jpeg';
 import eventActivation from '../assets/home/event-activation.jpeg';
 import eventDevision from '../assets/home/event-devision.png';
 
-const services = [
-  'DRUŠTVENE MREŽE I SADRŽAJ',
-  'DIGITALNI MARKETING I OGLAŠAVANJE',
-  'BRENDING I STRATEGIJA',
-  'DIZAJN I MEDIJSKO OGLAŠAVANJE',
-  'WEB I SEO',
-  'EVENTI I AKTIVACIJE',
-];
+const Home = () => {
+  const pageRef = useRef(null);
 
-const Home = () => (
-  <main className="home-pdf">
+  useEffect(() => {
+    const page = pageRef.current;
+    if (!page) return undefined;
+
+    const slides = [...page.querySelectorAll('.home-slide')];
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    page.classList.add('home-effects-ready');
+
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      slides.forEach((slide) => slide.classList.add('is-in-view'));
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18, rootMargin: '0px 0px -8% 0px' }
+    );
+
+    slides.forEach((slide) => observer.observe(slide));
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+  <main ref={pageRef} className="home-pdf">
     <section className="home-slide home-hero" aria-labelledby="home-hero-title">
-      <Logo className="home-hero__logo" />
       <div className="home-hero__copy">
         <h1 id="home-hero-title">
           <span>WE MAKE BRANDS</span>
@@ -44,43 +59,26 @@ const Home = () => (
     </section>
 
     <section id="o-nama" className="home-slide home-about" aria-labelledby="home-about-title">
+      <video
+        className="home-about__video"
+        src={aboutVideo}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        disablePictureInPicture
+        aria-hidden="true"
+      />
       <div className="home-about__copy">
         <h2 id="home-about-title">
           DeVision je marketinška agencija koja spaja strategiju, kreativnost i izvedbu.
         </h2>
         <p>
-          Od društvenih mreža i sadržaja do digitalnog oglašavanja, weba, dizajna i evenata –stvaramo cjelovitu
+          Od društvenih mreža i sadržaja do digitalnog oglašavanja, weba, dizajna i evenata – stvaramo cjelovitu
           komunikaciju koja gradi prepoznatljive i snažne brendove.
         </p>
       </div>
-
-      <div className="home-about__collage" aria-label="Izbor DeVision projekata">
-        <div className="home-about__column home-about__column--one">
-          <img src={aboutFashion} alt="Modna kampanja" />
-          <img src={aboutPhone} alt="Kampanja za restoran" />
-          <img src={aboutCity} alt="Kampanja u Splitu" />
-        </div>
-        <div className="home-about__column home-about__column--two">
-          <img src={aboutJoker} alt="Joker Mall kampanja" />
-          <img src={aboutFitness} alt="Produkcija sadržaja u fitness centru" />
-          <img src={aboutBurger} alt="Kampanja za restoran" />
-        </div>
-        <div className="home-about__column home-about__column--three">
-          <img src={aboutReplay} alt="Replay kampanja" />
-          <img src={aboutShirt} alt="Modni sadržaj" />
-        </div>
-      </div>
-    </section>
-
-    <section id="usluge" className="home-slide home-services" aria-labelledby="home-services-title">
-      <div className="home-services__copy">
-        <h2 id="home-services-title">USLUGE</h2>
-        <ul>
-          {services.map((service) => <li key={service}>{service}</li>)}
-        </ul>
-        <h3>NAŠI KLIJENTI</h3>
-      </div>
-      <img className="home-services__clients" src={clientStrip} alt="Logotipi DeVision klijenata" />
     </section>
 
     <section id="drustvene-mreze" className="home-slide home-social" aria-labelledby="home-social-title">
@@ -103,8 +101,12 @@ const Home = () => (
         izvještavanje rezultata.
       </p>
       <div className="home-marketing__screens" aria-label="Primjeri rezultata digitalnih kampanja">
-        <img src={marketingJuly} alt="9.216 interakcija u srpnju" />
-        <img src={marketingAugust} alt="11.150 interakcija u kolovozu" />
+        <div className="home-marketing__screen">
+          <img src={marketingJuly} alt="9.216 interakcija u srpnju" />
+        </div>
+        <div className="home-marketing__screen">
+          <img src={marketingAugust} alt="11.150 interakcija u kolovozu" />
+        </div>
       </div>
     </section>
 
@@ -140,10 +142,18 @@ const Home = () => (
 
     <section id="eventi" className="home-slide home-events" aria-labelledby="home-events-title">
       <div className="home-events__gallery" aria-label="DeVision eventi i aktivacije">
-        <img src={eventDevision} alt="DeVision događaj" />
-        <img src={eventLaunch} alt="Otvorenje fitness centra" />
-        <img src={eventInterview} alt="Medijska aktivacija" />
-        <img src={eventActivation} alt="Brand aktivacija" />
+        <div className="home-events__image home-events__image--devision">
+          <img src={eventDevision} alt="DeVision događaj" />
+        </div>
+        <div className="home-events__image home-events__image--launch">
+          <img src={eventLaunch} alt="Otvorenje fitness centra" />
+        </div>
+        <div className="home-events__image home-events__image--interview">
+          <img src={eventInterview} alt="Medijska aktivacija" />
+        </div>
+        <div className="home-events__image home-events__image--activation">
+          <img src={eventActivation} alt="Brand aktivacija" />
+        </div>
       </div>
       <div className="home-events__copy">
         <h2 id="home-events-title">EVENTI I<br />AKTIVACIJE</h2>
@@ -158,6 +168,7 @@ const Home = () => (
       <Logo className="home-closing__logo" />
     </section>
   </main>
-);
+  );
+};
 
 export default Home;

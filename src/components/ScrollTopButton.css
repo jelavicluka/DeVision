@@ -1,24 +1,30 @@
 .scroll-top-button {
+  --scroll-top-pink: #ff3cb4;
+  --scroll-top-yellow: #fffcaf;
   position: fixed;
   right: clamp(1rem, 3vw, 2.5rem);
   bottom: clamp(1rem, 3vw, 2.5rem);
   z-index: 90;
   display: grid;
-  width: 3.25rem;
-  height: 3.25rem;
+  width: 3.5rem;
+  height: 3.5rem;
   padding: 0;
-  border: 1px solid var(--color-border);
-  background: color-mix(in srgb, var(--color-background) 88%, transparent);
-  color: var(--color-text);
+  border: 1.5px solid var(--scroll-top-pink);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.82);
+  box-shadow: 0 0.35rem 1.25rem rgba(0, 0, 0, 0.28);
+  color: var(--scroll-top-yellow);
+  font-family: 'Poppins', Arial, sans-serif;
   font-size: 1.35rem;
+  font-weight: 600;
   line-height: 1;
   place-items: center;
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
   transform: translateY(0.75rem);
-  backdrop-filter: blur(10px);
-  transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+  backdrop-filter: blur(8px);
+  transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .scroll-top-button.is-visible {
@@ -28,8 +34,19 @@
 }
 
 .scroll-top-button:hover {
-  background: var(--color-text);
-  color: var(--color-background);
+  background: var(--scroll-top-pink);
+  border-color: var(--scroll-top-pink);
+  color: #000;
+  transform: translateY(-0.18rem);
+}
+
+.scroll-top-button:active {
+  transform: translateY(0);
+}
+
+.scroll-top-button:focus-visible {
+  outline: 3px solid var(--scroll-top-pink);
+  outline-offset: 4px;
 }
 
 .scroll-top-button span {
@@ -38,8 +55,11 @@
 
 @media (max-width: 480px) {
   .scroll-top-button {
-    width: 3rem;
-    height: 3rem;
+    right: 1.15rem;
+    bottom: 1.15rem;
+    width: 3.15rem;
+    height: 3.15rem;
+    font-size: 1.2rem;
   }
 }
 

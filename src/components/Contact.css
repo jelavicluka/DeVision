@@ -1,9 +1,17 @@
 .contact-page {
+  --contact-pink: #ff3cb4;
+  --contact-yellow: #fffcaf;
   width: min(100%, 1440px);
   margin: 0 auto;
   padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 5vw, 5rem) clamp(8rem, 13vw, 12rem);
   background: var(--color-background);
   color: var(--color-text);
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+.contact-page ::selection {
+  background: var(--contact-pink);
+  color: #000;
 }
 
 .contact-hero {
@@ -21,7 +29,7 @@
 .contact-socials > span,
 .contact-form__heading > span {
   display: block;
-  color: var(--color-muted);
+  color: var(--contact-pink);
   font-size: 0.72rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -36,8 +44,9 @@
 .contact-hero h1 {
   margin: 0;
   font-size: clamp(4.3rem, 7.5vw, 7.5rem);
-  font-weight: 400;
-  letter-spacing: -0.065em;
+  color: var(--contact-yellow);
+  font-weight: 700;
+  letter-spacing: -0.05em;
   line-height: 0.84;
   opacity: 0;
   animation: contact-fade-up 0.8s cubic-bezier(0.2, 0.75, 0.25, 1) 0.1s forwards;
@@ -46,7 +55,7 @@
 .contact-hero > p {
   max-width: 540px;
   margin: 0 0 0.25rem auto;
-  color: var(--color-muted);
+  color: #fff;
   font-size: clamp(1.05rem, 1.6vw, 1.3rem);
   line-height: 1.65;
   opacity: 0;
@@ -68,7 +77,7 @@
 .contact-details__intro p {
   max-width: 380px;
   margin: 1rem 0 0;
-  color: var(--color-muted);
+  color: rgba(255, 255, 255, 0.76);
   font-size: clamp(1rem, 1.3vw, 1.15rem);
   line-height: 1.65;
 }
@@ -88,7 +97,7 @@
 
 .contact-details dt {
   margin-bottom: 0.65rem;
-  color: var(--color-muted);
+  color: var(--contact-pink);
   font-size: 0.68rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -109,7 +118,8 @@
 }
 
 .contact-details a:hover {
-  opacity: 0.6;
+  color: var(--contact-yellow);
+  opacity: 1;
 }
 
 .contact-socials ul {
@@ -136,9 +146,14 @@
   transform: translate(4px, -4px);
 }
 
+.contact-socials a:hover {
+  color: var(--contact-yellow);
+}
+
 .contact-form {
   padding: clamp(1.5rem, 3vw, 2.75rem);
-  border: 1px solid var(--color-border);
+  border: 2px solid var(--contact-pink);
+  background: rgba(255, 60, 180, 0.035);
   opacity: 0;
   animation: contact-fade-up 0.8s ease 0.28s forwards;
 }
@@ -155,7 +170,7 @@
 
 .contact-form__heading p {
   margin: 0;
-  color: var(--color-muted);
+  color: rgba(255, 255, 255, 0.66);
   font-size: 0.78rem;
 }
 
@@ -217,6 +232,7 @@
 .form-field input:focus,
 .form-field select:focus,
 .form-field textarea:focus {
+  border-bottom-color: var(--contact-pink);
   border-bottom-width: 2px;
 }
 
@@ -246,7 +262,7 @@
   width: 18px;
   height: 18px;
   margin: 0;
-  accent-color: var(--color-contrast);
+  accent-color: var(--contact-pink);
 }
 
 .form-consent label {
@@ -268,10 +284,10 @@
   align-items: center;
   margin-top: 2.5rem;
   padding: 1.2rem 1.4rem;
-  border: 1px solid var(--color-contrast);
+  border: 2px solid var(--contact-pink);
   border-radius: 0;
-  background: var(--color-contrast);
-  color: var(--color-on-contrast);
+  background: var(--contact-pink);
+  color: #000;
   cursor: pointer;
   font-size: 0.78rem;
   letter-spacing: 0.16em;
@@ -285,8 +301,8 @@
 }
 
 .contact-form__submit:hover {
-  background: var(--color-background);
-  color: var(--color-text);
+  background: var(--contact-yellow);
+  color: #000;
 }
 
 .contact-form__submit:hover span {
