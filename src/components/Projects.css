@@ -11,19 +11,10 @@
   padding: 0 5.55cqw;
 }
 
-.home-clients__heading > span {
-  display: block;
-  margin-bottom: 0.8cqw;
-  color: #ff3cb4;
-  font-size: 0.78cqw;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
 .home-clients__heading h2 {
   color: #fffcaf;
-  font-size: 6.6cqw;
+  max-width: 82cqw;
+  font-size: 5.3cqw;
   font-weight: 700;
   letter-spacing: -0.05em;
   line-height: 0.95;
@@ -79,6 +70,10 @@
   object-fit: contain;
 }
 
+.clients-marquee__item--joker-fitness img {
+  clip-path: inset(0 0.45% 0 0);
+}
+
 @keyframes clients-marquee-forward {
   from {
     transform: translateX(0);
@@ -99,13 +94,9 @@
     padding: 0 1.5rem;
   }
 
-  .home-clients__heading > span {
-    margin-bottom: 0.75rem;
-    font-size: 0.65rem;
-  }
-
   .home-clients__heading h2 {
-    font-size: clamp(3.3rem, 16vw, 5rem);
+    max-width: 10ch;
+    font-size: clamp(2.65rem, 13vw, 4rem);
   }
 
   .clients-marquees {

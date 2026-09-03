@@ -4,8 +4,8 @@
   width: min(100%, 1440px);
   margin: 0 auto;
   padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 5vw, 5rem) clamp(8rem, 13vw, 12rem);
-  background: var(--color-background);
-  color: var(--color-text);
+  background: #000;
+  color: #fff;
   font-family: 'Poppins', Arial, sans-serif;
 }
 
@@ -17,8 +17,6 @@
 .contact-hero {
   display: grid;
   margin-bottom: clamp(4rem, 8vw, 7rem);
-  padding-bottom: 2rem;
-  border-bottom: 1px solid var(--color-border);
   grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.7fr);
   gap: 3rem;
   align-items: end;
@@ -65,13 +63,15 @@
 .contact-layout {
   display: grid;
   grid-template-columns: minmax(260px, 0.38fr) minmax(0, 0.62fr);
-  gap: clamp(3rem, 8vw, 8rem);
+  gap: clamp(1rem, 2vw, 1.5rem);
   align-items: start;
 }
 
 .contact-details {
   position: sticky;
   top: calc(var(--navbar-height) + 2rem);
+  padding: clamp(1.5rem, 3vw, 2.75rem);
+  background: #0d0d0d;
 }
 
 .contact-details__intro p {
@@ -83,16 +83,14 @@
 }
 
 .contact-details__list {
-  margin: clamp(3rem, 6vw, 5rem) 0;
+  display: grid;
+  margin: clamp(2.5rem, 5vw, 4rem) 0;
+  gap: 0.75rem;
 }
 
 .contact-details__list > div {
-  padding-block: 1.25rem;
-  border-top: 1px solid var(--color-border);
-}
-
-.contact-details__list > div:last-child {
-  border-bottom: 1px solid var(--color-border);
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.055);
 }
 
 .contact-details dt {
@@ -108,7 +106,7 @@
 }
 
 .contact-details a {
-  color: var(--color-text);
+  color: #fff;
   text-decoration: none;
 }
 
@@ -123,9 +121,10 @@
 }
 
 .contact-socials ul {
+  display: grid;
   margin: 1rem 0 0;
   padding: 0;
-  border-top: 1px solid var(--color-border);
+  gap: 0.6rem;
   list-style: none;
 }
 
@@ -133,9 +132,10 @@
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  padding-block: 0.9rem;
-  border-bottom: 1px solid var(--color-border);
+  padding: 0.9rem 1rem;
+  background: rgba(255, 255, 255, 0.055);
   font-size: 1rem;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .contact-socials a span {
@@ -147,13 +147,13 @@
 }
 
 .contact-socials a:hover {
-  color: var(--contact-yellow);
+  background: var(--contact-pink);
+  color: #000;
 }
 
 .contact-form {
   padding: clamp(1.5rem, 3vw, 2.75rem);
-  border: 2px solid var(--contact-pink);
-  background: rgba(255, 60, 180, 0.035);
+  background: #0d0d0d;
   opacity: 0;
   animation: contact-fade-up 0.8s ease 0.28s forwards;
 }
@@ -164,8 +164,6 @@
   gap: 1.5rem;
   align-items: baseline;
   margin-bottom: clamp(2.5rem, 5vw, 4rem);
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--color-border);
 }
 
 .contact-form__heading p {
@@ -177,7 +175,7 @@
 .contact-form__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2.25rem 1.5rem;
+  gap: 1rem;
 }
 
 .form-field {
@@ -192,6 +190,7 @@
 
 .form-field label {
   margin-bottom: 0.75rem;
+  color: rgba(255, 255, 255, 0.72);
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -201,15 +200,14 @@
 .form-field select,
 .form-field textarea {
   width: 100%;
-  padding: 0.85rem 0;
+  padding: 1rem 1.1rem;
   border: 0;
-  border-bottom: 1px solid var(--color-border);
   border-radius: 0;
   outline: 0;
-  background: transparent;
-  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.055);
+  color: #fff;
   font-size: clamp(1.05rem, 1.5vw, 1.25rem);
-  transition: border-color 0.2s ease, border-width 0.2s ease;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-field textarea {
@@ -225,21 +223,21 @@
 }
 
 .form-field select option {
-  background: var(--color-background);
-  color: var(--color-text);
+  background: #111;
+  color: #fff;
 }
 
 .form-field input:focus,
 .form-field select:focus,
 .form-field textarea:focus {
-  border-bottom-color: var(--contact-pink);
-  border-bottom-width: 2px;
+  background: rgba(255, 255, 255, 0.085);
+  box-shadow: inset 0 0 0 2px var(--contact-pink);
 }
 
 .form-field.has-error input,
 .form-field.has-error select,
 .form-field.has-error textarea {
-  border-bottom-color: #c64242;
+  box-shadow: inset 0 0 0 2px #e95656;
 }
 
 .form-field__error {
@@ -277,48 +275,57 @@
 }
 
 .contact-form__submit {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  gap: 2rem;
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
   align-items: center;
   margin-top: 2.5rem;
-  padding: 1.2rem 1.4rem;
-  border: 2px solid var(--contact-pink);
-  border-radius: 0;
-  background: var(--contact-pink);
+  padding: 0.45rem 0.45rem 0.45rem 1.5rem;
+  border: 2px solid var(--contact-yellow);
+  border-radius: 999px;
+  background: var(--contact-yellow);
   color: #000;
   cursor: pointer;
   font-size: 0.78rem;
-  letter-spacing: 0.16em;
+  font-weight: 600;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
 }
 
 .contact-form__submit span {
-  font-size: 1.4rem;
-  transition: transform 0.25s ease;
+  display: grid;
+  width: 2.8rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #000;
+  color: var(--contact-yellow);
+  font-size: 1.2rem;
+  line-height: 1;
+  place-items: center;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
 }
 
 .contact-form__submit:hover {
-  background: var(--contact-yellow);
-  color: #000;
+  border-color: var(--contact-pink);
+  background: var(--contact-pink);
+  transform: translateY(-3px);
 }
 
 .contact-form__submit:hover span {
-  transform: translate(4px, -4px);
+  transform: rotate(10deg);
 }
 
 .contact-form__status {
   margin: 1rem 0 0;
   padding: 0.9rem 1rem;
-  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.055);
   font-size: 0.82rem;
   line-height: 1.5;
 }
 
 .contact-form__status.is-error {
-  border-color: #c64242;
   color: #c64242;
 }
 
@@ -351,7 +358,7 @@
     position: static;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .contact-details__intro {

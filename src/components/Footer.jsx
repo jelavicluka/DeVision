@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import IconsSocial from './IconsSocial';
@@ -6,12 +6,22 @@ import Logo from './Logo';
 import './Footer.css';
 
 const Footer = () => {
+  const { pathname } = useLocation();
+
+  const handleHomeLinkClick = (event) => {
+    if (pathname !== '/') return;
+
+    event.preventDefault();
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+  };
+
   return (
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-left">
           <div className="footer-logo">
-            <NavLink to="/">
+            <NavLink to="/" onClick={handleHomeLinkClick} aria-label="DeVision — povratak na vrh početne stranice">
               <Logo />
             </NavLink>
           </div>
@@ -34,7 +44,7 @@ const Footer = () => {
         </div>
         <div className="footer-right">
           <nav className="footer-nav">
-            <NavLink to="/" className={({ isActive }) => (isActive ? "active" : '')}>
+            <NavLink to="/" className={({ isActive }) => (isActive ? "active" : '')} onClick={handleHomeLinkClick}>
               <span>O nama</span>
             </NavLink>
             <NavLink to="/services" className={({ isActive }) => (isActive ? "active" : '')}>

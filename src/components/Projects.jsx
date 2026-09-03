@@ -26,7 +26,10 @@ const rows = [
 const ClientGroup = ({ clientsInRow, duplicate = false }) => (
   <div className="clients-marquee__group" aria-hidden={duplicate || undefined}>
     {clientsInRow.map((client) => (
-      <figure className="clients-marquee__item" key={`${client.id}-${duplicate ? 'copy' : 'original'}`}>
+      <figure
+        className={`clients-marquee__item clients-marquee__item--${client.id}`}
+        key={`${client.id}-${duplicate ? 'copy' : 'original'}`}
+      >
         <img src={client.logo} alt={duplicate ? '' : client.title} loading="eager" decoding="async" />
       </figure>
     ))}
@@ -36,8 +39,7 @@ const ClientGroup = ({ clientsInRow, duplicate = false }) => (
 const Projects = () => (
   <section className="home-slide home-clients" aria-labelledby="clients-title">
     <header className="home-clients__heading">
-      <span>Brendovi koji nam vjeruju</span>
-      <h2 id="clients-title">NAŠI KLIJENTI</h2>
+      <h2 id="clients-title">BRENDOVI KOJI NAM VJERUJU</h2>
     </header>
 
     <div className="clients-marquees">
