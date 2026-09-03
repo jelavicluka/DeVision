@@ -15,24 +15,8 @@
   line-height: 0.98;
 }
 
-.services-pdf .home-services h2 {
-  position: absolute;
-  top: 36.4cqw;
-  left: 0;
-  width: max-content;
-  color: var(--home-white);
-  font-size: 2.3cqw;
-  letter-spacing: -0.025em;
-}
-
 @media (max-width: 760px) {
   .services-pdf .home-services h1 {
     font-size: clamp(3.8rem, 20vw, 6rem);
-  }
-
-  .services-pdf .home-services h2 {
-    position: static;
-    margin-top: 3rem;
-    font-size: 1.35rem;
   }
 }

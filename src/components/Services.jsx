@@ -1,8 +1,6 @@
 import './Home.css';
 import './Services.css';
 
-import clientStrip from '../assets/home/client-strip.png';
-
 const services = [
   'DRUŠTVENE MREŽE I SADRŽAJ',
   'DIGITALNI MARKETING I OGLAŠAVANJE',
@@ -20,9 +18,7 @@ const Services = () => (
         <ul>
           {services.map((service) => <li key={service}>{service}</li>)}
         </ul>
-        <h2>NAŠI KLIJENTI</h2>
       </div>
-      <img className="home-services__clients" src={clientStrip} alt="Logotipi DeVision klijenata" />
     </section>
   </main>
 );

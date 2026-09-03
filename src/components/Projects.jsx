@@ -1,115 +1,62 @@
-import { useEffect, useRef } from 'react';
 import './Projects.css';
-import bodyCliniqueDark from '../assets/project-logos/body-clinique-dark.png';
-import bodyCliniqueLight from '../assets/project-logos/body-clinique-light.png';
-import cakeSymphonyDark from '../assets/project-logos/cake-symphony-dark.png';
-import cakeSymphonyLight from '../assets/project-logos/cake-symphony-light.png';
-import chevapHouseDark from '../assets/project-logos/chevap-house-dark.png';
-import chevapHouseLight from '../assets/project-logos/chevap-house-light.png';
-import hevaDark from '../assets/project-logos/heva-dark.png';
-import hevaLight from '../assets/project-logos/heva-light.png';
-import jokerDark from '../assets/project-logos/joker-dark.png';
-import jokerLight from '../assets/project-logos/joker-light.png';
-import levelDark from '../assets/project-logos/level-dark.png';
-import levelLight from '../assets/project-logos/level-light.png';
-import soraDark from '../assets/project-logos/sora-dark.png';
-import soraLight from '../assets/project-logos/sora-light.png';
+import bodyClinique from '../assets/project-logos/body-clinique-dark.png';
+import cakeSymphony from '../assets/project-logos/cake-symphony-dark.png';
+import chevapHouse from '../assets/project-logos/chevap-house-dark.png';
+import heva from '../assets/project-logos/heva-dark.png';
+import joker from '../assets/project-logos/joker-dark.png';
+import level from '../assets/project-logos/level-dark.png';
+import sora from '../assets/project-logos/sora-dark.png';
 
-const projects = [
-  { id: 'cake-symphony', title: 'Cake Symphony', light: cakeSymphonyLight, dark: cakeSymphonyDark },
-  { id: 'chevap-house', title: 'Chevap House', light: chevapHouseLight, dark: chevapHouseDark },
-  { id: 'heva', title: 'HEVA', light: hevaLight, dark: hevaDark },
-  { id: 'joker-fitness', title: 'Joker Fitness', light: jokerLight, dark: jokerDark },
-  { id: 'level', title: 'Level', light: levelLight, dark: levelDark },
-  { id: 'the-body-clinique', title: 'The Body Clinique', light: bodyCliniqueLight, dark: bodyCliniqueDark },
-  { id: 'sora', title: 'Sora Sushi & Cocktail Bar', light: soraLight, dark: soraDark }
+const clients = [
+  { id: 'joker-fitness', title: 'Joker Fitness', logo: joker },
+  { id: 'chevap-house', title: 'Chevap House', logo: chevapHouse },
+  { id: 'heva', title: 'HEVA', logo: heva },
+  { id: 'sora', title: 'Sora Sushi & Cocktail Bar', logo: sora },
+  { id: 'the-body-clinique', title: 'The Body Clinique', logo: bodyClinique },
+  { id: 'cake-symphony', title: 'Cake Symphony', logo: cakeSymphony },
+  { id: 'level', title: 'Level', logo: level },
 ];
 
-const Projects = () => {
-  const sectionRef = useRef(null);
-  const marqueeRef = useRef(null);
+const rows = [
+  clients,
+  [...clients.slice(3), ...clients.slice(0, 3)],
+  [...clients].reverse(),
+];
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section || !('IntersectionObserver' in window)) {
-      section?.classList.add('is-visible');
-      return undefined;
-    }
+const ClientGroup = ({ clientsInRow, duplicate = false }) => (
+  <div className="clients-marquee__group" aria-hidden={duplicate || undefined}>
+    {clientsInRow.map((client) => (
+      <figure className="clients-marquee__item" key={`${client.id}-${duplicate ? 'copy' : 'original'}`}>
+        <img src={client.logo} alt={duplicate ? '' : client.title} loading="eager" decoding="async" />
+      </figure>
+    ))}
+  </div>
+);
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          section.classList.add('is-visible');
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.08 }
-    );
+const Projects = () => (
+  <section className="home-slide home-clients" aria-labelledby="clients-title">
+    <header className="home-clients__heading">
+      <span>Brendovi koji nam vjeruju</span>
+      <h2 id="clients-title">NAŠI KLIJENTI</h2>
+    </header>
 
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const marquee = marqueeRef.current;
-    const isIOSWebKit = /iPad|iPhone|iPod/.test(navigator.userAgent) && /WebKit/.test(navigator.userAgent);
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (!marquee || !isIOSWebKit || reduceMotion) return undefined;
-
-    let animationFrame;
-    let previousTime = performance.now();
-    let position = marquee.scrollLeft;
-
-    const moveMarquee = (currentTime) => {
-      const elapsed = Math.min(currentTime - previousTime, 100);
-      const loopWidth = marquee.scrollWidth / 2;
-      previousTime = currentTime;
-      position += elapsed * 0.022;
-
-      if (loopWidth > 0 && position >= loopWidth) position -= loopWidth;
-      marquee.scrollLeft = position;
-      animationFrame = window.requestAnimationFrame(moveMarquee);
-    };
-
-    animationFrame = window.requestAnimationFrame(moveMarquee);
-    return () => window.cancelAnimationFrame(animationFrame);
-  }, []);
-
-  return (
-    <section ref={sectionRef} className="projects-showcase" aria-labelledby="projects-title">
-      <header className="projects-heading">
-        <span className="projects-heading__kicker">Naši klijenti</span>
-        <h2 id="projects-title">Projekti</h2>
-      </header>
-
-      <p className="projects-visually-hidden">
-        Naši klijenti: {projects.map((project) => project.title).join(', ')}.
-      </p>
-
-      <div ref={marqueeRef} className="projects-marquee" aria-hidden="true">
-        <div className="projects-marquee__track">
-          {[...projects, ...projects].map((project, index) => (
-            <figure className="projects-marquee__item" key={`${project.id}-${index}`}>
-              <picture>
-                <source media="(prefers-color-scheme: dark)" srcSet={project.dark} />
-                <img
-                  src={project.light}
-                  alt=""
-                  loading={index < projects.length ? 'eager' : 'lazy'}
-                  decoding="async"
-                />
-              </picture>
-            </figure>
-          ))}
+    <div className="clients-marquees">
+      {rows.map((row, index) => (
+        <div
+          className={`clients-marquee clients-marquee--${index + 1}`}
+          key={`clients-row-${index + 1}`}
+          aria-label={index === 0 ? clients.map((client) => client.title).join(', ') : undefined}
+          aria-hidden={index > 0 || undefined}
+        >
+          <div className="clients-marquee__track">
+            <ClientGroup clientsInRow={row} />
+            <ClientGroup clientsInRow={row} duplicate />
+          </div>
         </div>
-      </div>
+      ))}
+    </div>
 
-      <p className="projects-caption">
-        Brendovi s kojima gradimo jasne, prepoznatljive i dugotrajne priče.
-      </p>
-    </section>
-  );
-};
+  </section>
+);
 
 export default Projects;

@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './Home.css';
 import Logo from './Logo';
+import Projects from './Projects';
 
 import aboutVideo from '../../Business Marketing Video.mp4';
 import socialPasta from '../assets/home/social-pasta.jpeg';
@@ -16,6 +17,7 @@ import eventDevision from '../assets/home/event-devision.png';
 
 const Home = () => {
   const pageRef = useRef(null);
+  const [isAboutVideoReady, setIsAboutVideoReady] = useState(false);
 
   useEffect(() => {
     const page = pageRef.current;
@@ -58,7 +60,11 @@ const Home = () => {
       </div>
     </section>
 
-    <section id="o-nama" className="home-slide home-about" aria-labelledby="home-about-title">
+    <section
+      id="o-nama"
+      className={`home-slide home-about${isAboutVideoReady ? ' is-video-ready' : ''}`}
+      aria-labelledby="home-about-title"
+    >
       <video
         className="home-about__video"
         src={aboutVideo}
@@ -68,8 +74,20 @@ const Home = () => {
         playsInline
         preload="metadata"
         disablePictureInPicture
+        onCanPlay={() => setIsAboutVideoReady(true)}
+        onPlaying={() => setIsAboutVideoReady(true)}
+        onError={() => setIsAboutVideoReady(true)}
         aria-hidden="true"
       />
+      <div
+        className="home-about__loader"
+        role="status"
+        aria-live="polite"
+        aria-hidden={isAboutVideoReady}
+      >
+        <span className="home-about__spinner" aria-hidden="true" />
+        <span>Učitavanje videa</span>
+      </div>
       <div className="home-about__copy">
         <h2 id="home-about-title">
           DeVision je marketinška agencija koja spaja strategiju, kreativnost i izvedbu.
@@ -163,6 +181,8 @@ const Home = () => {
         </p>
       </div>
     </section>
+
+    <Projects />
 
     <section className="home-slide home-closing" aria-label="DeVision Marketing Agency">
       <Logo className="home-closing__logo" />

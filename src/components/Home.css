@@ -117,12 +117,77 @@ html:has(.home-pdf)::-webkit-scrollbar {
   pointer-events: none;
 }
 
+.home-about__loader {
+  position: absolute;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--home-black);
+  color: var(--home-yellow);
+  flex-direction: column;
+  gap: 1.25rem;
+  inset: 0;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.55s ease, visibility 0.55s ease;
+}
+
+.home-about__loader > span:last-child {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.home-about__spinner {
+  position: relative;
+  display: block;
+  width: 3.75rem;
+  height: 3.75rem;
+  border: 2px solid rgba(255, 252, 175, 0.22);
+  border-top-color: var(--home-pink);
+  border-radius: 50%;
+  animation: home-video-spin 0.85s linear infinite;
+}
+
+.home-about__spinner::after {
+  position: absolute;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--home-yellow);
+  content: '';
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+}
+
+.home-about.is-video-ready .home-about__loader {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@keyframes home-video-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .home-about__copy {
   position: absolute;
   bottom: clamp(3.5rem, 7vw, 7.5rem);
   left: clamp(1.5rem, 5.55vw, 5.5rem);
   z-index: 2;
   width: min(68cqw, 980px);
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: opacity 0.75s ease 0.2s, transform 0.9s cubic-bezier(0.2, 0.75, 0.2, 1) 0.2s;
+}
+
+.home-about.is-video-ready .home-about__copy {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .home-about__copy h2 {
@@ -527,6 +592,14 @@ html:has(.home-pdf)::-webkit-scrollbar {
   transform: scale(1);
 }
 
+/* The video copy follows video readiness rather than the general slide observer. */
+.home-effects-ready .home-about .home-about__copy h2,
+.home-effects-ready .home-about .home-about__copy p {
+  opacity: 1;
+  clip-path: none;
+  transform: none;
+}
+
 .home-effects-ready .home-marketing__screen:nth-child(2) img,
 .home-effects-ready .home-events__image:nth-child(2) img {
   transition-delay: 0.24s;
@@ -777,6 +850,14 @@ html:has(.home-pdf)::-webkit-scrollbar {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .home-about__copy {
+    transition: none;
+  }
+
+  .home-about__spinner {
+    animation: none;
+  }
+
   .home-effects-ready .home-slide h1,
   .home-effects-ready .home-slide h2,
   .home-effects-ready .home-slide h3,
