@@ -301,7 +301,7 @@
   font-size: clamp(3.5rem, 7.7vw, 8rem);
   font-weight: 700;
   letter-spacing: -0.055em;
-  line-height: 0.92;
+  line-height: 0.98;
 }
 
 .services-cta a {
@@ -429,6 +429,10 @@
 
   .services-cta {
     min-height: 72svh;
+  }
+
+  .services-cta h2 {
+    line-height: 1.05;
   }
 }
 

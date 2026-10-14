@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
+import ArrowUpRight from './ArrowUpRight';
 import './Services.css';
 
 const services = [
@@ -148,7 +149,7 @@ const Services = () => {
       <section className="services-cta" aria-labelledby="services-cta-title">
         <span>Imate projekt na umu?</span>
         <h2 id="services-cta-title">PRETVORIMO IDEJU U SLJEDEĆU DOBRU PRIČU.</h2>
-        <NavLink to="/contact">Započnimo razgovor <span aria-hidden="true">↗</span></NavLink>
+        <NavLink to="/contact">Započnimo razgovor <ArrowUpRight /></NavLink>
       </section>
     </main>
   );

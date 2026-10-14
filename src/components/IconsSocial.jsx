@@ -1,23 +1,26 @@
 import './IconsSocial.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInstagram, faFacebookF, faTiktok } from '@fortawesome/free-brands-svg-icons';
+import { faFacebookF, faInstagram, faLinkedinIn, faTiktok } from '@fortawesome/free-brands-svg-icons';
+import socialLinks from './socialLinks';
 
-const platforms = [
-    { name: 'Instagram', key: 'instagram', icon: faInstagram },
-    { name: 'TikTok', key: 'tiktok', icon: faTiktok },
-    { name: 'Facebook', key: 'facebook', icon: faFacebookF },
-];
+const icons = {
+    linkedin: faLinkedinIn,
+    instagram: faInstagram,
+    facebook: faFacebookF,
+    tiktok: faTiktok,
+};
 
 const IconsSocial = ({ size, links = {} }) => {
     return (
         <div className="social-icons">
-            {platforms.map((platform) => {
-                const icon = <FontAwesomeIcon icon={platform.icon} size={size} className="icon" />;
+            {socialLinks.map((platform) => {
+                const href = links[platform.key] ?? platform.href;
+                const icon = <FontAwesomeIcon icon={icons[platform.key]} size={size} className="icon" />;
 
-                return links[platform.key] ? (
+                return href ? (
                     <a
                         key={platform.key}
-                        href={links[platform.key]}
+                        href={href}
                         title={platform.name}
                         aria-label={platform.name}
                         className="social-icon"

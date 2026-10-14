@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react';
 import ContactVerification from './ContactVerification';
 import { Link } from 'react-router-dom';
+import ArrowUpRight from './ArrowUpRight';
+import socialLinks from './socialLinks';
 import './Contact.css';
 
 const initialValues = {
@@ -12,12 +14,6 @@ const initialValues = {
   consent: false,
   website: ''
 };
-
-const socialLinks = [
-  { name: 'Instagram', href: 'https://www.instagram.com/' },
-  { name: 'TikTok', href: 'https://www.tiktok.com/' },
-  { name: 'Facebook', href: 'https://www.facebook.com/' }
-];
 
 const validateField = (name, value) => {
   const trimmedValue = typeof value === 'string' ? value.trim() : value;
@@ -165,7 +161,7 @@ const Contact = () => {
               {socialLinks.map((social) => (
                 <li key={social.name}>
                   <a href={social.href} target="_blank" rel="noreferrer">
-                    {social.name} <span aria-hidden="true">↗</span>
+                    {social.name} <ArrowUpRight />
                   </a>
                 </li>
               ))}
@@ -302,7 +298,7 @@ const Contact = () => {
           <ContactVerification onVerify={setTurnstileToken} resetKey={verificationReset} />
 
           <button type="submit" className="contact-form__submit" disabled={isSending}>
-            {isSending ? 'Slanje…' : 'Pošalji upit'} <span aria-hidden="true">↗</span>
+            {isSending ? 'Slanje…' : 'Pošalji upit'} <ArrowUpRight />
           </button>
 
           {status && (

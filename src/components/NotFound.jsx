@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import ArrowUpRight from './ArrowUpRight';
 import './NotFound.css';
 
 export default function NotFound() {
@@ -18,7 +19,7 @@ export default function NotFound() {
       <div className="not-found__layout">
         <div className="not-found__art" aria-hidden="true">
           <span>4</span>
-          <span className="not-found__zero"><span>↗</span></span>
+          <span className="not-found__zero"><ArrowUpRight /></span>
           <span>4</span>
           <span className="not-found__sticker">Izvan kadra.</span>
         </div>
@@ -26,12 +27,12 @@ export default function NotFound() {
           <h1 ref={heading} tabIndex={-1} id="not-found-title">Dobra ideja.<br /><span>Kriva adresa.</span></h1>
           <p>Ova je stranica možda premještena ili poveznica nije ispravna. Vratimo vas na pravo mjesto.</p>
           <div className="not-found__actions">
-            <Link to="/" className="not-found__home">Na početnu <span aria-hidden="true">↗</span></Link>
-            <Link to="/contact" className="not-found__contact">Javite nam se <span aria-hidden="true">↗</span></Link>
+            <Link to="/" className="not-found__home">Na početnu <ArrowUpRight /></Link>
+            <Link to="/contact" className="not-found__contact">Javite nam se <ArrowUpRight /></Link>
           </div>
         </div>
       </div>
-      <div className="not-found__footnote"><span>Izgubljena stranica.</span><span>Pronađimo novi smjer. ↗</span></div>
+      <div className="not-found__footnote"><span>Izgubljena stranica.</span><span>Pronađimo novi smjer. <ArrowUpRight /></span></div>
     </main>
   );
 }

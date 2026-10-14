@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import ArrowUpRight from './ArrowUpRight';
 import './ServiceCards.css';
 
 const services = [
@@ -96,7 +97,7 @@ const ServiceCards = () => {
               <p>{service.description}</p>
             </div>
             <span className="editorial-service-card__link">
-              Otkrij više <span aria-hidden="true">↗</span>
+              Otkrij više <ArrowUpRight />
             </span>
           </NavLink>
         ))}

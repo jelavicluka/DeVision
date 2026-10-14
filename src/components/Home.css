@@ -753,6 +753,11 @@ html:has(.home-pdf)::-webkit-scrollbar {
     object-position: center;
   }
 
+  .home-advertising__image {
+    height: auto;
+    object-fit: contain;
+  }
+
   .home-marketing h2,
   .home-marketing > p,
   .home-branding h2,
