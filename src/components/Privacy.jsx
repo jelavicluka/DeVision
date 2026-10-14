@@ -13,7 +13,7 @@ export default function Privacy() {
       <div className="privacy-page__content">
         <section aria-labelledby="privacy-controller">
           <h2 id="privacy-controller">01 / Tko obrađuje vaše podatke?</h2>
-          <p>Voditelj obrade je <strong>DEVISION, obrt za usluge, vl. Deni Vuleta</strong>, Tijardovićeva 2, 21000 Split, Hrvatska.</p>
+          <p>Voditelj obrade je <strong>DEVISION 1 d.o.o. za usluge</strong>, Put Brodarice 6, 21000 Split, Hrvatska, OIB: 90298379158, MBS: 060519275.</p>
           <p>Za pitanja o privatnosti i ostvarivanje svojih prava pišite na <a href="mailto:deni@devision.hr">deni@devision.hr</a>.</p>
         </section>
 

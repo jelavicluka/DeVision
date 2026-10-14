@@ -81,7 +81,7 @@ Izvorni MP4 videozapisi u korijenu ostaju sačuvani i ne uključuju se u build.
 ## Privatnost i nepostojeće stranice
 
 Obavijest o privatnosti je na `/privatnost`, dostupna u podnožju i uz kontaktni
-obrazac. Sadrži podatke obrta iz dostavljene Fininfo poveznice i potvrđeni rok
+obrazac. Sadrži podatke društva iz dostavljene poveznice Sudskog registra i potvrđeni rok
 čuvanja neuspjelih poslovnih upita od 12 mjeseci nakon zadnje komunikacije.
 Brisanje tih poruka treba provoditi u poslovnom sandučiću; stranica ga ne obavlja
 automatski. Prije objave potvrditi aktualnost registriranih podataka i stvarne

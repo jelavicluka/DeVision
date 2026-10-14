@@ -15,6 +15,8 @@ test('routes have unique Croatian titles/descriptions and canonical URLs without
     assert.equal(getPageMeta(path.toUpperCase() + (path === '/' ? '' : '/')).url, meta.url);
     const data = getStructuredData(meta);
     assert.equal(data[0].address.addressCountry, 'HR');
+    assert.equal(data[0].legalName, 'DEVISION 1 d.o.o. za usluge');
+    assert.equal(data[0].taxID, '90298379158');
     assert.equal(data[1].inLanguage, 'hr-HR');
   }
   assert.equal(titles.size, 4);
@@ -37,7 +39,7 @@ test('production HTML contains content and per-page metadata before JavaScript r
     ['index.html', '/', 'WE MAKE BRANDS'],
     ['services.html', '/services', 'Društvene mreže i sadržaj'],
     ['contact.html', '/contact', 'Razgovarajmo.'],
-    ['privatnost.html', '/privatnost', 'Tijardovićeva 2'],
+    ['privatnost.html', '/privatnost', 'Put Brodarice 6'],
     ['404.html', '/404', 'Dobra ideja.'],
   ];
   for (const [file, path, content] of checks) {
