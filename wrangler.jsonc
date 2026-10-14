@@ -2,5 +2,9 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "devision",
   "pages_build_output_dir": "./dist",
-  "compatibility_date": "2026-10-14"
+  "compatibility_date": "2026-10-14",
+  "vars": {
+    "CONTACT_FROM_EMAIL": "DeVision web <web@upiti.devision.hr>",
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAFW3AJRD48z1vpM2doNE19Zp-VY"
+  }
 }
