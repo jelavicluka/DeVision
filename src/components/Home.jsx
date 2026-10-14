@@ -3,7 +3,8 @@ import './Home.css';
 import Logo from './Logo';
 import Projects from './Projects';
 
-import aboutVideo from '../../Business Marketing Video.mp4';
+import aboutVideo from '../assets/video/business-marketing.web.mp4';
+import aboutVideoVertical from '../assets/video/business-marketing-vertical.web.mp4';
 import socialPasta from '../assets/home/social-pasta.jpeg';
 import marketingJuly from '../assets/home/marketing-july.png';
 import marketingAugust from '../assets/home/marketing-august.png';
@@ -18,6 +19,21 @@ import eventDevision from '../assets/home/event-devision.png';
 const Home = () => {
   const pageRef = useRef(null);
   const [isAboutVideoReady, setIsAboutVideoReady] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 760px)').matches
+  );
+  const aboutVideoSource = isSmallScreen ? aboutVideoVertical : aboutVideo;
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 760px)');
+    const handleChange = (event) => {
+      setIsAboutVideoReady(false);
+      setIsSmallScreen(event.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   useEffect(() => {
     const page = pageRef.current;
@@ -66,8 +82,9 @@ const Home = () => {
       aria-labelledby="home-about-title"
     >
       <video
+        key={aboutVideoSource}
         className="home-about__video"
-        src={aboutVideo}
+        src={typeof window !== 'undefined' ? aboutVideoSource : undefined}
         autoPlay
         muted
         loop

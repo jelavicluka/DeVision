@@ -30,11 +30,11 @@ const Footer = () => {
             <div className="contact-info">
               <div className="contact-item">
                 <FontAwesomeIcon icon={faPhone} color="white" size="2x" className="icon" />
-                <a href="tel:+385991234567">+385 99 123 4567</a>
+                <a href="tel:+385996047635">+385 99 604 7635</a>
               </div>
               <div className="contact-item">
                 <FontAwesomeIcon icon={faEnvelope} color="white" size="2x" className="icon" />
-                <a href="mailto:info@devision.com">info@devision.com</a>
+                <a href="mailto:deni@devision.hr">deni@devision.hr</a>
               </div>
               <div className='contact-icons'>
                 <IconsSocial size="3x" />
@@ -58,6 +58,7 @@ const Footer = () => {
       </div>
       <div className="footer-bottom">
         <p>&copy; {new Date().getFullYear()} DeVision. Sva prava pridržana.</p>
+        <NavLink to="/privatnost">Obavijest o privatnosti</NavLink>
       </div>
     </footer>
   );

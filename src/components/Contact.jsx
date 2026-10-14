@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import ContactVerification from './ContactVerification';
+import { Link } from 'react-router-dom';
 import './Contact.css';
 
 const initialValues = {
@@ -7,7 +9,8 @@ const initialValues = {
   company: '',
   service: '',
   message: '',
-  consent: false
+  consent: false,
+  website: ''
 };
 
 const socialLinks = [
@@ -20,10 +23,14 @@ const validateField = (name, value) => {
   const trimmedValue = typeof value === 'string' ? value.trim() : value;
 
   if (name === 'name' && trimmedValue.length < 2) return 'Upišite ime i prezime.';
+  if (name === 'name' && trimmedValue.length > 120) return 'Ime može sadržavati najviše 120 znakova.';
   if (name === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedValue)) return 'Upišite ispravnu e-mail adresu.';
+  if (name === 'email' && trimmedValue.length > 254) return 'E-mail adresa je predugačka.';
+  if (name === 'company' && trimmedValue.length > 160) return 'Naziv tvrtke može sadržavati najviše 160 znakova.';
   if (name === 'service' && !trimmedValue) return 'Odaberite uslugu koja vas zanima.';
   if (name === 'message' && trimmedValue.length < 10) return 'Poruka treba sadržavati najmanje 10 znakova.';
-  if (name === 'consent' && !value) return 'Potrebna je suglasnost za obradu podataka.';
+  if (name === 'message' && trimmedValue.length > 6000) return 'Poruka može sadržavati najviše 6000 znakova.';
+  if (name === 'consent' && !value) return 'Potvrdite da ste upoznati s obavijesti o privatnosti.';
 
   return '';
 };
@@ -32,6 +39,12 @@ const Contact = () => {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('');
+  const [statusType, setStatusType] = useState('');
+  const [isSending, setIsSending] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [verificationReset, setVerificationReset] = useState(0);
+  const sendingRef = useRef(false);
+  const submissionId = useRef(null);
 
   const updateField = ({ target }) => {
     const { name, type, checked, value } = target;
@@ -39,6 +52,8 @@ const Contact = () => {
 
     setValues((currentValues) => ({ ...currentValues, [name]: nextValue }));
     setStatus('');
+    setStatusType('');
+    submissionId.current = null;
 
     if (errors[name]) {
       setErrors((currentErrors) => ({
@@ -56,10 +71,11 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    if (sendingRef.current) return;
 
-    const requiredFields = ['name', 'email', 'service', 'message', 'consent'];
+    const requiredFields = ['name', 'email', 'company', 'service', 'message', 'consent'];
     const nextErrors = Object.fromEntries(
       requiredFields
         .map((field) => [field, validateField(field, values[field])])
@@ -70,10 +86,49 @@ const Contact = () => {
 
     if (Object.keys(nextErrors).length > 0) {
       setStatus('Provjerite označena polja i pokušajte ponovno.');
+      setStatusType('error');
       return;
     }
 
-    setStatus('Forma je ispravno ispunjena. Slanje poruke bit će omogućeno nakon povezivanja e-mail servisa.');
+    if (!turnstileToken) {
+      setStatus('Pričekajte provjeru zaštite od neželjenih poruka i pokušajte ponovno.');
+      setStatusType('error');
+      return;
+    }
+
+    sendingRef.current = true;
+    setIsSending(true);
+    setStatus('Šaljemo vaš upit…');
+    setStatusType('');
+    submissionId.current ||= crypto.randomUUID();
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Idempotency-Key': submissionId.current },
+        body: JSON.stringify({ ...values, turnstileToken }),
+        signal: AbortSignal.timeout(30000),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        setErrors(result.errors || {});
+        throw new Error(result.message || 'Slanje nije uspjelo. Pokušajte ponovno.');
+      }
+      if (!result.message) throw new Error('Slanje nije moguće potvrditi. Pokušajte ponovno.');
+      setValues({ ...initialValues });
+      submissionId.current = null;
+      setStatus(result.message);
+      setStatusType('success');
+    } catch (error) {
+      setStatus(error.name === 'TimeoutError' || error instanceof TypeError || error instanceof SyntaxError
+        ? 'Slanje nije moguće potvrditi. Pokušajte ponovno ili pišite na deni@devision.hr.'
+        : error.message);
+      setStatusType('error');
+    } finally {
+      sendingRef.current = false;
+      setIsSending(false);
+      setTurnstileToken('');
+      setVerificationReset((current) => current + 1);
+    }
   };
 
   return (
@@ -96,11 +151,11 @@ const Contact = () => {
           <dl className="contact-details__list">
             <div>
               <dt>E-mail</dt>
-              <dd><a href="mailto:info@devision.com">info@devision.com</a></dd>
+              <dd><a href="mailto:deni@devision.hr">deni@devision.hr</a></dd>
             </div>
             <div>
               <dt>Telefon</dt>
-              <dd><a href="tel:+385991234567">+385 99 123 4567</a></dd>
+              <dd><a href="tel:+385996047635">+385 99 604 7635</a></dd>
             </div>
           </dl>
 
@@ -118,12 +173,19 @@ const Contact = () => {
           </nav>
         </aside>
 
-        <form className="contact-form" onSubmit={handleSubmit} noValidate>
+        <form className="contact-form" action="/api/contact" method="post" onSubmit={handleSubmit} noValidate aria-busy={isSending}>
           <div className="contact-form__heading">
             <span>Projektni upit</span>
             <p>Polja označena zvjezdicom su obavezna.</p>
           </div>
+          <noscript>Za slanje obrasca uključite JavaScript ili nam pišite na <a href="mailto:deni@devision.hr">deni@devision.hr</a>.</noscript>
 
+          <fieldset className="contact-form__fields" disabled={isSending}>
+          <legend className="contact-form__visually-hidden">Podaci za projektni upit</legend>
+          <div className="contact-form__honeypot" aria-hidden="true">
+            <label htmlFor="contact-website">Web-stranica</label>
+            <input id="contact-website" name="website" value={values.website} onChange={updateField} tabIndex={-1} autoComplete="off" />
+          </div>
           <div className="contact-form__grid">
             <div className={`form-field ${errors.name ? 'has-error' : ''}`}>
               <label htmlFor="contact-name">Ime i prezime *</label>
@@ -131,6 +193,7 @@ const Contact = () => {
                 id="contact-name"
                 name="name"
                 type="text"
+                maxLength={120}
                 value={values.name}
                 onChange={updateField}
                 onBlur={validateOnBlur}
@@ -148,6 +211,7 @@ const Contact = () => {
                 id="contact-email"
                 name="email"
                 type="email"
+                maxLength={254}
                 value={values.email}
                 onChange={updateField}
                 onBlur={validateOnBlur}
@@ -160,17 +224,21 @@ const Contact = () => {
               {errors.email && <span id="contact-email-error" className="form-field__error">{errors.email}</span>}
             </div>
 
-            <div className="form-field">
+            <div className={`form-field ${errors.company ? 'has-error' : ''}`}>
               <label htmlFor="contact-company">Tvrtka ili brend</label>
               <input
                 id="contact-company"
                 name="company"
                 type="text"
+                maxLength={160}
                 value={values.company}
                 onChange={updateField}
                 autoComplete="organization"
+                aria-invalid={Boolean(errors.company)}
+                aria-describedby={errors.company ? 'contact-company-error' : undefined}
                 placeholder="Naziv tvrtke"
               />
+              {errors.company && <span id="contact-company-error" className="form-field__error">{errors.company}</span>}
             </div>
 
             <div className={`form-field ${errors.service ? 'has-error' : ''}`}>
@@ -205,6 +273,7 @@ const Contact = () => {
                 onChange={updateField}
                 onBlur={validateOnBlur}
                 rows="5"
+                maxLength={6000}
                 aria-invalid={Boolean(errors.message)}
                 aria-describedby={errors.message ? 'contact-message-error' : undefined}
                 placeholder="Ciljevi, okvirni rok ili sve što smatrate važnim..."
@@ -224,16 +293,20 @@ const Contact = () => {
               aria-invalid={Boolean(errors.consent)}
               aria-describedby={errors.consent ? 'contact-consent-error' : undefined}
             />
-            <label htmlFor="contact-consent">Slažem se da se uneseni podaci koriste za odgovor na moj upit. *</label>
+            <label htmlFor="contact-consent">Upoznat/a sam s <Link to="/privatnost" target="_blank" rel="noopener">Obavijesti o privatnosti (otvara se u novoj kartici)</Link> i obradom podataka radi odgovora na moj upit. *</label>
             {errors.consent && <span id="contact-consent-error" className="form-field__error">{errors.consent}</span>}
           </div>
 
-          <button type="submit" className="contact-form__submit">
-            Pošalji upit <span aria-hidden="true">↗</span>
+          </fieldset>
+
+          <ContactVerification onVerify={setTurnstileToken} resetKey={verificationReset} />
+
+          <button type="submit" className="contact-form__submit" disabled={isSending}>
+            {isSending ? 'Slanje…' : 'Pošalji upit'} <span aria-hidden="true">↗</span>
           </button>
 
           {status && (
-            <p className={`contact-form__status ${Object.keys(errors).length ? 'is-error' : 'is-success'}`} role="status">
+            <p className={`contact-form__status${statusType ? ` is-${statusType}` : ''}`} role="status">
               {status}
             </p>
           )}

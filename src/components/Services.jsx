@@ -110,7 +110,7 @@ const Services = () => {
       <div className="services-details" aria-label="Detalji usluga">
         {services.map((service, index) => (
           <section
-            className={`service-detail${['digitalni-marketing', 'medijsko-oglasavanje'].includes(service.id) ? ' service-detail--long-title' : ''}`}
+            className="service-detail"
             id={service.id}
             key={service.id}
             aria-labelledby={`${service.id}-title`}

@@ -1,0 +1,5 @@
+# Kopirati u .dev.vars samo za lokalni rad; stvarne tajne ne slati u Git.
+RESEND_API_KEY=""
+CONTACT_FROM_EMAIL="DeVision web <web@upiti.devision.hr>"
+TURNSTILE_SITE_KEY=""
+TURNSTILE_SECRET_KEY=""

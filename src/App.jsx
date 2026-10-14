@@ -5,9 +5,12 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Footer from './components/Footer';
 import ScrollTopButton from './components/ScrollTopButton';
+import PageMetadata from './components/PageMetadata';
 
 const Services = lazy(() => import('./components/Services'));
 const Contact = lazy(() => import('./components/Contact'));
+const NotFound = lazy(() => import('./components/NotFound'));
+const Privacy = lazy(() => import('./components/Privacy'));
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -27,6 +30,7 @@ function ScrollToTop() {
 function App() {
   return (
     <div className="app">
+      <PageMetadata />
       <ScrollToTop />
       <Navbar />
       <Suspense fallback={<div className="route-loading" aria-live="polite">Loading…</div>}>
@@ -34,6 +38,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/privatnost" element={<Privacy />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
       <Footer />

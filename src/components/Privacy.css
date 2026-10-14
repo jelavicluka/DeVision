@@ -1,0 +1,79 @@
+.privacy-page {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4rem) clamp(5rem, 10vw, 9rem);
+}
+
+.privacy-page__header {
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  border-bottom: 1px solid rgb(255 255 255 / 18%);
+}
+
+.privacy-page__header > span {
+  color: var(--brand-pink);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.privacy-page h1 {
+  margin: 1.5rem 0;
+  color: var(--brand-yellow);
+  font-size: clamp(2.6rem, 7vw, 6rem);
+  letter-spacing: -0.055em;
+  line-height: 1.02;
+}
+
+.privacy-page__header p {
+  max-width: 55ch;
+  color: var(--color-muted);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.7;
+}
+
+.privacy-page__header small {
+  display: block;
+  margin-top: 1.5rem;
+  color: var(--color-muted);
+}
+
+.privacy-page__content {
+  max-width: 75ch;
+}
+
+.privacy-page section {
+  margin-top: 3rem;
+}
+
+.privacy-page h2 {
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+  letter-spacing: -0.025em;
+  line-height: 1.4;
+}
+
+.privacy-page__content p,
+.privacy-page li {
+  color: var(--color-muted);
+  font-size: 1rem;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+
+.privacy-page ul {
+  padding-left: 1.3rem;
+}
+
+.privacy-page li + li {
+  margin-top: 1rem;
+}
+
+.privacy-page a {
+  color: var(--brand-yellow);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.privacy-page a:hover {
+  color: var(--brand-pink);
+}
